@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 export const AuthForm = () => {
   const router = useRouter();
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +19,9 @@ export const AuthForm = () => {
 
   const handleLogin = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    debugger
     loginRequest(email, password);
+    debugger
     router.push("/dashboard");
   };
 

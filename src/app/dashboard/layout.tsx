@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -20,9 +20,9 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { navigation } from "@/config/navigation";
 import { usePathname } from "next/navigation";
-import AuthContext from "@/context/auth-context";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { logoutRequest } from "@/services/logoutRequest";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -35,20 +35,14 @@ export default function Layout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { logout } = useContext(AuthContext);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const userNavigation = [
-    // {
-    //   name: "Settings",
-    //   onClick: () => {
-    //     router.push("/dashboard/settings");
-    //   },
-    // },
     {
       name: "Sign out",
-      onClick: () => {
-        logout();
+      onClick: async () => {
+        await logoutRequest();
+        setSidebarOpen(false);
       },
     },
   ];
@@ -97,7 +91,7 @@ export default function Layout({
                     router.push("/");
                   }}
                 >
-                  <span className="text-white text-lg font-semibold">🏴‍☠️</span>
+                  <span className="text-white text-lg font-semibold">🔴🔵</span>
                 </div>
                 <nav className="flex flex-1 flex-col">
                   <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -159,7 +153,10 @@ export default function Layout({
                       </li> */}
                       <li>
                         <span
-                          onClick={logout}
+                          onClick={async () => {
+                            await logoutRequest();
+                            setSidebarOpen(false);
+                          }}
                           className={classNames(
                             "cursor-pointer text-blue-200 hover:text-white hover:bg-blue-700",
                             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
@@ -190,7 +187,7 @@ export default function Layout({
                 router.push("/");
               }}
             >
-              <span className="text-white text-3xl">🏴‍☠️</span>
+              <span className="text-white text-3xl">🔴🔵</span>
             </div>
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -247,7 +244,7 @@ export default function Layout({
                 </li> */}
                 <li>
                   <span
-                    onClick={logout}
+                    onClick={logoutRequest}
                     className={classNames(
                       "cursor-pointer text-blue-200 hover:text-white hover:bg-blue-700",
                       "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"

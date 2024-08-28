@@ -1,24 +1,6 @@
+import { validateToken } from "@/services/validateToken";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
-export async function validateToken(token: string) {
-  console.log("--- validateToken ---");
-  console.log(`${process.env.NEXT_PUBLIC_API_URL}`);
-
-  const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/auth/validate-token`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  if (!resp.ok) {
-    throw new Error("Failed to validate token");
-  }
-}
 
 export async function protectedPageGuard() {
   try {
@@ -29,11 +11,12 @@ export async function protectedPageGuard() {
     const cookieStore = cookies();
     const jwtCookie = cookieStore.get("jwt");
 
-    console.log(jwtCookie);
+    // console.log(jwtCookie);
 
     if (!jwtCookie?.value) return redirect("/");
 
     await validateToken(jwtCookie?.value);
+    debugger
   } catch (error) {
     return redirect("/");
   }

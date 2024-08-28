@@ -1,4 +1,4 @@
-import { ChatMessage } from "@/components/no-rag-chat/chat-message";
+import { ChatMessage } from "@/components/experiment-1/chat-message";
 import { Message } from "@/ts/types/Message";
 
 export interface P {

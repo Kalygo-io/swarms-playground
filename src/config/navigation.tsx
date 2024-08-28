@@ -1,41 +1,19 @@
-import {
-  BiBrain,
-  BiCheck,
-  BiSolidAlarmExclamation,
-  BiSolidStar,
-  BiX,
-} from "react-icons/bi";
-import { GoFileMedia } from "react-icons/go";
+import { FaDiceOne, FaDiceTwo, FaDiceThree } from "react-icons/fa";
 
 export const navigation = [
   {
-    name: "1) Agent without R.A.G.",
-    href: "/dashboard/no-rag",
-    icon: BiX,
+    name: "Experiment #1",
+    href: "/dashboard/experiment-1",
+    icon: FaDiceOne,
   },
   {
-    name: "2) Agent with R.A.G.",
-    href: "/dashboard/rag",
-    icon: BiCheck,
+    name: "Experiment #2",
+    href: "/dashboard/experiment-2",
+    icon: FaDiceTwo,
   },
   {
-    name: "3) Reason + Act Agent",
-    href: "/dashboard/re-act",
-    icon: BiBrain,
-  },
-  {
-    name: "4) Recommendations",
-    href: "/dashboard/recommendations",
-    icon: BiSolidStar,
-  },
-  {
-    name: "5) Anomaly Detection",
-    href: "/dashboard/anomaly-detection",
-    icon: BiSolidAlarmExclamation,
-  },
-  {
-    name: "6) Multi-Modal Search",
-    href: "/dashboard/multi-modal",
-    icon: GoFileMedia,
+    name: "Experiment #3",
+    href: "/dashboard/experiment-3",
+    icon: FaDiceThree,
   },
 ];
