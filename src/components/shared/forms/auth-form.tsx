@@ -17,10 +17,10 @@ export const AuthForm = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
 
-  const handleLogin = (e: { preventDefault: () => void }) => {
+  const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     debugger
-    loginRequest(email, password);
+    await loginRequest(email, password);
     debugger
     router.push("/dashboard");
   };
