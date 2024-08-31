@@ -1,4 +1,4 @@
-import { PromptForm } from "@/components/experiment-1/prompt-form";
+import { PromptForm } from "@/components/1-sequential/prompt-form";
 
 export interface ChatPanelProps {
   sessionId: string;

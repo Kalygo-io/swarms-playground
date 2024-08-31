@@ -1,19 +1,24 @@
-import { FaDiceOne, FaDiceTwo, FaDiceThree } from "react-icons/fa";
+import { FaDiceOne, FaDiceTwo, FaDiceThree, FaDiceFour } from "react-icons/fa";
 
 export const navigation = [
   {
-    name: "Experiment #1",
-    href: "/dashboard/experiment-1",
+    name: "Sequential Swarm",
+    href: "/dashboard/1-sequential",
     icon: FaDiceOne,
   },
   {
-    name: "Experiment #2",
-    href: "/dashboard/experiment-2",
+    name: "Parallel Swarm",
+    href: "/dashboard/2-parallel",
     icon: FaDiceTwo,
   },
   {
-    name: "Experiment #3",
-    href: "/dashboard/experiment-3",
+    name: "Hierarchical Swarm",
+    href: "/dashboard/3-hierarchical",
     icon: FaDiceThree,
+  },
+  {
+    name: "Spreadsheet Swarm",
+    href: "/dashboard/4-spreadsheet",
+    icon: FaDiceFour,
   },
 ];

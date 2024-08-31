@@ -1,9 +1,9 @@
 "use client";
 
-import { ChatContext } from "@/app/dashboard/experiment-1/chat-session-context";
-import { ChatList } from "@/components/experiment-1/chat-list";
-import { ChatPanel } from "@/components/experiment-1/chat-panel";
-import { EmptyScreen } from "@/components/experiment-1/empty-screen";
+import { ChatContext } from "@/app/dashboard/1-sequential/chat-session-context";
+import { ChatList } from "@/components/1-sequential/chat-list";
+import { ChatPanel } from "@/components/1-sequential/chat-panel";
+import { EmptyScreen } from "@/components/1-sequential/empty-screen";
 import { useScrollAnchor } from "@/shared/hooks/use-scroll-anchor";
 import { cn } from "@/shared/utils";
 import { useContext, useEffect, useState } from "react";

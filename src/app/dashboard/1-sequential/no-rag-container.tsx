@@ -3,12 +3,12 @@
 import {
   ChatContext,
   ChatDispatchContext,
-} from "@/app/dashboard/experiment-1/chat-session-context";
+} from "@/app/dashboard/1-sequential/chat-session-context";
 import {
   chatReducer,
   initialState,
-} from "@/app/dashboard/experiment-1/chat-session-reducer";
-import { Chat as StreamingWithMemoryChat } from "@/components/experiment-1/chat";
+} from "@/app/dashboard/1-sequential/chat-session-reducer";
+import { Chat as StreamingWithMemoryChat } from "@/components/1-sequential/chat";
 import { useReducer } from "react";
 
 export function NoRagContainer() {

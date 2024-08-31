@@ -1,4 +1,4 @@
-import { ChatMessage } from "@/components/experiment-1/chat-message";
+import { ChatMessage } from "@/components/1-sequential/chat-message";
 import { Message } from "@/ts/types/Message";
 
 export interface P {
