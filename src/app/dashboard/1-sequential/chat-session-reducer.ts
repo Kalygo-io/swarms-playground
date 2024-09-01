@@ -1,10 +1,11 @@
 import { v4 as uuid } from "uuid";
 import { Message } from "@/ts/types/Message";
+import { SwarmMessage } from "@/ts/types/SwarmMessage";
 
 export type Action =
   | {
       type: "ADD_MESSAGE";
-      payload: Message;
+      payload: SwarmMessage;
     }
   | {
       type: "SET_COMPLETION_LOADING";
@@ -39,6 +40,7 @@ export function chatReducer(
             id: action.payload.id,
             content: action.payload.content,
             role: action.payload.role,
+            agentName: action.payload.agentName,
             error: action.payload.error,
           },
         ],

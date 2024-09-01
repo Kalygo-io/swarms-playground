@@ -1,5 +1,4 @@
 import { cn } from "@/shared/utils";
-import { Message } from "@/ts/types/Message";
 import { BiUser } from "react-icons/bi";
 import { GiArtificialIntelligence } from "react-icons/gi";
 
@@ -7,10 +6,11 @@ import { Separator } from "@/components/shared/separator";
 import { memo } from "react";
 import ReactMarkdown from "react-markdown";
 import { uuidToColor } from "@/shared/uuidToColorCode";
+import { SwarmMessage } from "@/ts/types/SwarmMessage";
 
 interface P {
   index: number;
-  message: Message;
+  message: SwarmMessage;
 }
 
 export const ChatMessage = memo(
@@ -53,6 +53,7 @@ export const ChatMessage = memo(
                 P.message.error && "text-red-600"
               )}
             >
+              <b className="text-lg">{P.message.agentName}</b>
               <ReactMarkdown
                 components={{
                   p({ className, children, ...props }) {

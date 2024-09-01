@@ -8,7 +8,7 @@ export async function callSequentialSwarm(
   dispatch: React.Dispatch<Action>
 ) {
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_AI_API_URL}/sequential-swarm/completion`,
+    `${process.env.NEXT_PUBLIC_AI_API_URL}/rearrange-swarm/completion`,
     {
       method: "POST",
       headers: {
@@ -28,7 +28,6 @@ export async function callSequentialSwarm(
 
   const decoder = new TextDecoder();
 
-  const swarmSessionId = nanoid();
   let accMessage = {
     content: "",
   };
@@ -41,8 +40,9 @@ export async function callSequentialSwarm(
 
     try {
       const parsedChunk = JSON.parse(chunk);
-      dispatchEventToState(parsedChunk, dispatch, swarmSessionId, accMessage);
+      dispatchEventToState(parsedChunk, dispatch, accMessage);
     } catch (e) {
+      debugger
       let multiChunkAcc = "";
 
       let idx = 0;
@@ -55,7 +55,6 @@ export async function callSequentialSwarm(
             dispatchEventToState(
               parsedChunk,
               dispatch,
-              swarmSessionId,
               accMessage
             );
 
@@ -77,7 +76,6 @@ export async function callSequentialSwarm(
 function dispatchEventToState(
   parsedChunk: Record<string, string>,
   dispatch: React.Dispatch<Action>,
-  swarmSessionId: string,
   accMessage: { content: string }
 ) {
 
@@ -86,19 +84,22 @@ function dispatchEventToState(
   console.log('accMessage.content', accMessage.content)
 
   const messageId = parsedChunk["run_id"]
+  const agentName = parsedChunk["agent_name"]
 
-  if (parsedChunk["event"] === "on_llm_start") {
+  if (parsedChunk["event"] === "on_chat_model_start") {
+    debugger
+
     dispatch({
       type: "ADD_MESSAGE",
       payload: {
-
         id: messageId,
+        agentName: agentName,
         content: "",
         role: "ai",
         error: null,
       },
     });
-  } else if (parsedChunk["event"] === "on_llm_stream") {
+  } else if (parsedChunk["event"] === "on_chat_model_stream") {
     accMessage.content += parsedChunk["data"];
     dispatch({
       type: "EDIT_MESSAGE",
@@ -107,7 +108,7 @@ function dispatchEventToState(
         content: accMessage.content,
       },
     });
-  } else if (parsedChunk["event"] === "on_llm_end") {
+  } else if (parsedChunk["event"] === "on_chat_model_end") {
     console.log('LLM END')
     accMessage.content = ""
   } else {
