@@ -6,6 +6,7 @@ import { GiArtificialIntelligence } from "react-icons/gi";
 import { Separator } from "@/components/shared/separator";
 import { memo } from "react";
 import ReactMarkdown from "react-markdown";
+import { uuidToColor } from "@/shared/uuidToColorCode";
 
 interface P {
   index: number;
@@ -14,6 +15,11 @@ interface P {
 
 export const ChatMessage = memo(
   function ChatMessage(P: P) {
+
+    console.log('->->- P.message -<-<-', P.message)
+
+    const hexCode = uuidToColor(P.message.id);
+
     if (P.message.role === "ai" || P.message.role === "human") {
       return (
         <div key={P.message.id}>
@@ -36,7 +42,7 @@ export const ChatMessage = memo(
               {P.message.role === "human" ? (
                 <BiUser />
               ) : (
-                <GiArtificialIntelligence color="blue" />
+                <GiArtificialIntelligence color={hexCode} />
               )}
             </div>
             <div

@@ -28,7 +28,7 @@ export async function callSequentialSwarm(
 
   const decoder = new TextDecoder();
 
-  const aiMessageId = nanoid();
+  const swarmSessionId = nanoid();
   let accMessage = {
     content: "",
   };
@@ -41,7 +41,7 @@ export async function callSequentialSwarm(
 
     try {
       const parsedChunk = JSON.parse(chunk);
-      dispatchEventToState(parsedChunk, dispatch, aiMessageId, accMessage);
+      dispatchEventToState(parsedChunk, dispatch, swarmSessionId, accMessage);
     } catch (e) {
       let multiChunkAcc = "";
 
@@ -55,7 +55,7 @@ export async function callSequentialSwarm(
             dispatchEventToState(
               parsedChunk,
               dispatch,
-              aiMessageId,
+              swarmSessionId,
               accMessage
             );
 
@@ -77,29 +77,39 @@ export async function callSequentialSwarm(
 function dispatchEventToState(
   parsedChunk: Record<string, string>,
   dispatch: React.Dispatch<Action>,
-  aiMessageId: string,
+  swarmSessionId: string,
   accMessage: { content: string }
 ) {
-  if (parsedChunk["event"] === "on_chat_model_start") {
+
+  console.log('dispatchEventToState', parsedChunk)
+
+  console.log('accMessage.content', accMessage.content)
+
+  const messageId = parsedChunk["run_id"]
+
+  if (parsedChunk["event"] === "on_llm_start") {
     dispatch({
       type: "ADD_MESSAGE",
       payload: {
-        id: aiMessageId,
+
+        id: messageId,
         content: "",
         role: "ai",
         error: null,
       },
     });
-  } else if (parsedChunk["event"] === "on_chat_model_stream") {
+  } else if (parsedChunk["event"] === "on_llm_stream") {
     accMessage.content += parsedChunk["data"];
     dispatch({
       type: "EDIT_MESSAGE",
       payload: {
-        id: aiMessageId,
+        id: messageId,
         content: accMessage.content,
       },
     });
-  } else if (parsedChunk["event"] === "on_chat_model_end") {
+  } else if (parsedChunk["event"] === "on_llm_end") {
+    console.log('LLM END')
+    accMessage.content = ""
   } else {
     console.error("Unknown event:", parsedChunk["event"]);
   }
