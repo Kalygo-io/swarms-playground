@@ -42,7 +42,7 @@ export async function callSequentialSwarm(
       const parsedChunk = JSON.parse(chunk);
       dispatchEventToState(parsedChunk, dispatch, accMessage);
     } catch (e) {
-      debugger
+      // debugger
       let multiChunkAcc = "";
 
       let idx = 0;
@@ -87,7 +87,7 @@ function dispatchEventToState(
   const agentName = parsedChunk["agent_name"]
 
   if (parsedChunk["event"] === "on_chat_model_start") {
-    debugger
+    // debugger
 
     dispatch({
       type: "ADD_MESSAGE",
