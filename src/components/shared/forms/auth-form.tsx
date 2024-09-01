@@ -19,9 +19,7 @@ export const AuthForm = () => {
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    debugger
     await loginRequest(email, password);
-    debugger
     router.push("/dashboard");
   };
 

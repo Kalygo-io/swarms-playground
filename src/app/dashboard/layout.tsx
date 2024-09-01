@@ -43,6 +43,7 @@ export default function Layout({
       onClick: async () => {
         await logoutRequest();
         setSidebarOpen(false);
+        router.push("/");
       },
     },
   ];
@@ -156,6 +157,7 @@ export default function Layout({
                           onClick={async () => {
                             await logoutRequest();
                             setSidebarOpen(false);
+                            router.push("/");
                           }}
                           className={classNames(
                             "cursor-pointer text-blue-200 hover:text-white hover:bg-blue-700",
@@ -244,7 +246,10 @@ export default function Layout({
                 </li> */}
                 <li>
                   <span
-                    onClick={logoutRequest}
+                    onClick={async () => {
+                      await logoutRequest()
+                      router.push("/");
+                    }}
                     className={classNames(
                       "cursor-pointer text-blue-200 hover:text-white hover:bg-blue-700",
                       "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"

@@ -2,13 +2,13 @@ import { Action } from "@/app/dashboard/1-sequential/chat-session-reducer";
 import { nanoid } from "@/shared/utils";
 import React from "react";
 
-export async function callNoRagAgent(
+export async function callSequentialSwarm(
   sessionId: string,
   prompt: string,
   dispatch: React.Dispatch<Action>
 ) {
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_AI_API_URL}/no-rag-agent/completion`,
+    `${process.env.NEXT_PUBLIC_AI_API_URL}/sequential-swarm/completion`,
     {
       method: "POST",
       headers: {

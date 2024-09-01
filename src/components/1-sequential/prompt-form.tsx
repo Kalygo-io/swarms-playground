@@ -5,7 +5,7 @@ import * as React from "react";
 import { ChatDispatchContext } from "@/app/dashboard/1-sequential/chat-session-context";
 import { useEnterSubmit } from "@/shared/hooks/use-enter-submit";
 import { nanoid } from "@/shared/utils";
-import { callNoRagAgent } from "@/services/callNoRagAgent";
+import { callSequentialSwarm } from "@/services/callSequentialSwarm";
 import { useRouter } from "next/navigation";
 
 export function PromptForm({
@@ -50,7 +50,7 @@ export function PromptForm({
             payload: true,
           });
 
-          await callNoRagAgent(sessionId, prompt, dispatch);
+          await callSequentialSwarm(sessionId, prompt, dispatch);
 
           dispatch({
             type: "SET_COMPLETION_LOADING",

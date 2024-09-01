@@ -30,6 +30,7 @@ export function chatReducer(
 ) {
   switch (action.type) {
     case "ADD_MESSAGE": {
+      console.log('ADD_MESSAGE')
       return {
         ...state,
         messages: [
@@ -44,6 +45,8 @@ export function chatReducer(
       };
     }
     case "EDIT_MESSAGE": {
+      console.log('EDIT_MESSAGE')
+
       const index = state.messages.findIndex((m) => m.id === action.payload.id);
 
       return {
@@ -59,6 +62,8 @@ export function chatReducer(
       };
     }
     case "SET_COMPLETION_LOADING": {
+      console.log('SET_COMPLETION_LOADING')
+
       return {
         ...state,
         completionLoading: action.payload,

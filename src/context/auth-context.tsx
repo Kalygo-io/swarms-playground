@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       formData.append("username", username);
       formData.append("password", password);
 
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+      await fetch(`${process.env.NEXT_PUBLIC_NODE_API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams({
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = async () => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {
+      await fetch(`${process.env.NEXT_PUBLIC_NODE_API_URL}/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

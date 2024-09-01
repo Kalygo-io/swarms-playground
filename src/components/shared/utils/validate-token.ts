@@ -11,12 +11,8 @@ export async function protectedPageGuard() {
     const cookieStore = cookies();
     const jwtCookie = cookieStore.get("jwt");
 
-    // console.log(jwtCookie);
-
     if (!jwtCookie?.value) return redirect("/");
-
     await validateToken(jwtCookie?.value);
-    debugger
   } catch (error) {
     return redirect("/");
   }
