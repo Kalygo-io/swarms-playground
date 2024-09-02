@@ -16,7 +16,7 @@ interface P {
 
 export const SubBlock = memo(
   function SubBlock(P: P) {
-    console.log("->->- P.Block -<-<-", P.block);
+    // console.log("->->- P.Block -<-<-", P.block);
 
     if (P.block.type === "ai" || P.block.type === "prompt") {
       const hexCode = stringToColor(
@@ -64,7 +64,7 @@ export const SubBlock = memo(
         </div>
       );
     } else {
-      debugger;
+      // debugger;
       return <div key={P.block.id}>UNSUPPORTED MESSAGE</div>;
     }
   },

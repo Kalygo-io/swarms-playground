@@ -7,6 +7,7 @@ import { useEnterSubmit } from "@/shared/hooks/use-enter-submit";
 import { nanoid } from "@/shared/utils";
 import { callRearrangeSwarm } from "@/services/callRearrangeSwarm";
 import { useRouter } from "next/navigation";
+import { useRearrangeSwarmContext } from "@/context/rearrange-context";
 
 export function PromptForm({
   input,
@@ -19,6 +20,7 @@ export function PromptForm({
 }) {
   const router = useRouter();
   const { formRef, onKeyDown } = useEnterSubmit();
+  const { context } = useRearrangeSwarmContext();
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
   const dispatch = React.useContext(ChatDispatchContext);
@@ -50,7 +52,7 @@ export function PromptForm({
             payload: true,
           });
 
-          await callRearrangeSwarm(sessionId, prompt, dispatch);
+          await callRearrangeSwarm(sessionId, prompt, context, dispatch);
 
           dispatch({
             type: "SET_COMPLETION_LOADING",

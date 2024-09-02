@@ -5,6 +5,7 @@ import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useRearrangeSwarmContext } from "@/context/rearrange-context";
 import { Separator } from "@/components/shared/separator";
+import { toast } from "react-toastify";
 
 interface P {
   topNavHeight: number;
@@ -14,7 +15,12 @@ interface P {
 
 export default function CustomizeSwarmDrawer(P: P) {
   const [agentCount, setAgentCount] = useState(3);
-  const { data, setData } = useRearrangeSwarmContext();
+  const { context, setRearrangeSwarmContext } = useRearrangeSwarmContext();
+
+  const [localData, setLocalData] = useState({
+    agents: context.agents || {},
+    flow: context.flow || "",
+  });
 
   const handleAddAgent = () => {
     if (agentCount < 10) {
@@ -35,7 +41,7 @@ export default function CustomizeSwarmDrawer(P: P) {
 
     if (name.startsWith("agents.")) {
       const [_, agentKey, agentProperty] = name.split(".");
-      setData((prevData) => ({
+      setLocalData((prevData) => ({
         ...prevData,
         agents: {
           ...prevData.agents,
@@ -46,7 +52,7 @@ export default function CustomizeSwarmDrawer(P: P) {
         },
       }));
     } else {
-      setData((prevData) => ({
+      setLocalData((prevData) => ({
         ...prevData,
         [name]: value,
       }));
@@ -55,11 +61,10 @@ export default function CustomizeSwarmDrawer(P: P) {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Do something with the formData, like sending it to an API
-    console.log(data);
-  };
 
-  // console.log("data.flow", data?.flow);
+    setRearrangeSwarmContext(localData);
+    toast.success("Swarm customized successfully");
+  };
 
   return (
     <Dialog open={P.open} onClose={P.setOpen} className={`relative z-10`}>
@@ -117,7 +122,7 @@ export default function CustomizeSwarmDrawer(P: P) {
                             </label>
                             <div className="mt-2">
                               {[...Array(agentCount)].map((_, index) => (
-                                <>
+                                <div key={index}>
                                   <fieldset className="border border-gray-400 p-2 rounded-md">
                                     <legend className="text-gray-400 text-sm px-1">
                                       Agent {index + 1}
@@ -127,7 +132,9 @@ export default function CustomizeSwarmDrawer(P: P) {
                                     <input
                                       id={`agents.${index}.name`}
                                       name={`agents.${index}.name`}
-                                      value={data?.agents?.[index]?.name}
+                                      value={
+                                        localData?.agents?.[index]?.name || ""
+                                      }
                                       onChange={handleChange}
                                       placeholder={`Agent name`}
                                       className="bg-gray-800 block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 mt-2"
@@ -137,15 +144,16 @@ export default function CustomizeSwarmDrawer(P: P) {
                                       id={`agents.${index}.system_prompt`}
                                       name={`agents.${index}.system_prompt`}
                                       value={
-                                        data?.agents?.[index]?.system_prompt
+                                        localData?.agents?.[index]
+                                          ?.system_prompt || ""
                                       }
                                       onChange={handleChange}
                                       placeholder={`System prompt`}
                                       className="bg-gray-800 block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 mt-2 resize-none h-14"
                                     />
                                   </fieldset>
-                                  <Separator className="my-4 bg-gray-400" />
-                                </>
+                                  <Separator className="my-4 bg-gray-700" />
+                                </div>
                               ))}
                             </div>
                             <div className="flex justify-end mt-2">
@@ -179,7 +187,7 @@ export default function CustomizeSwarmDrawer(P: P) {
                             <input
                               id="flow"
                               name="flow"
-                              value={data?.flow}
+                              value={localData?.flow}
                               onChange={handleChange}
                               type="text"
                               placeholder="Agent 1, Agent 2 -> Agent 3 etc..."

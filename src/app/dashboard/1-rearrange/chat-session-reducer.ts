@@ -8,9 +8,10 @@ export type Action =
       payload: Block;
     }
   | {
-    type: "ADD_PARALLEL_GROUP_BLOCK";
-    payload: ParallelGroupBlock;
-  } | {
+      type: "ADD_PARALLEL_GROUP_BLOCK";
+      payload: ParallelGroupBlock;
+    }
+  | {
       type: "SET_COMPLETION_LOADING";
       payload: boolean;
     }
@@ -22,8 +23,8 @@ export type Action =
         content?: string;
         error?: any;
       };
-    } |
-    {
+    }
+  | {
       type: "EDIT_PARALLEL_GROUP_BLOCK";
       payload: {
         parallelGroupId: string;
@@ -44,8 +45,7 @@ export function chatReducer(
 ) {
   switch (action.type) {
     case "ADD_DEFAULT_BLOCK": {
-
-      console.log('ADD_DEFAULT_BLOCK')
+      console.log("ADD_DEFAULT_BLOCK");
       return {
         ...state,
         blocks: [
@@ -59,12 +59,14 @@ export function chatReducer(
           } as Block,
         ],
       };
-
     }
 
     case "ADD_PARALLEL_GROUP_BLOCK": {
-
-      const index = state.blocks.findIndex((b) => b.type === "group" && b.parallelGroupId === action.payload.parallelGroupId);
+      const index = state.blocks.findIndex(
+        (b) =>
+          b.type === "group" &&
+          b.parallelGroupId === action.payload.parallelGroupId
+      );
 
       // debugger
       if (index === -1) {
@@ -81,20 +83,18 @@ export function chatReducer(
                 {
                   id: action.payload.runId,
                   content: "",
-                  type: 'ai',
+                  type: "ai",
                   agentName: action.payload.agentName,
                   error: action.payload.error,
-                } as Block
+                } as Block,
               ],
             } as ParallelGroupBlock,
           ],
-        }
-      
+        };
       } else {
-
-        const groupMemberIndex = (state.blocks[index] as ParallelGroupBlock)?.blocks.findIndex((ib) => ib.id === action.payload.runId);
-
-        debugger
+        const groupMemberIndex = (
+          state.blocks[index] as ParallelGroupBlock
+        )?.blocks.findIndex((ib) => ib.id === action.payload.runId);
 
         return {
           ...state,
@@ -104,30 +104,33 @@ export function chatReducer(
               ...state.blocks[index],
               blocks: [
                 // ...(state.blocks[index] as ParallelGroupBlock)?.blocks.slice(0, groupMemberIndex) || [],
-                ...(state.blocks[index] as ParallelGroupBlock)?.blocks.slice(groupMemberIndex + 1),
+                ...(state.blocks[index] as ParallelGroupBlock)?.blocks.slice(
+                  groupMemberIndex + 1
+                ),
                 {
                   id: action.payload.runId,
                   content: action.payload.content,
-                  type: 'ai',
+                  type: "ai",
                   agentName: action.payload.agentName,
                   error: action.payload.error,
                 } as Block,
-              ]
+              ],
             },
             ...state.blocks.slice(index + 1),
           ],
-        }
-
+        };
       }
-      
     }
-    
+
     case "EDIT_PARALLEL_GROUP_BLOCK": {
-      
-      const index = state.blocks.findIndex((b) => b.type === "group" && b.parallelGroupId === action.payload.parallelGroupId);
-      const groupMemberIndex = (state.blocks[index] as ParallelGroupBlock)?.blocks.findIndex((ib) => ib.id === action.payload.runId);
-      
-      debugger
+      const index = state.blocks.findIndex(
+        (b) =>
+          b.type === "group" &&
+          b.parallelGroupId === action.payload.parallelGroupId
+      );
+      const groupMemberIndex = (
+        state.blocks[index] as ParallelGroupBlock
+      )?.blocks.findIndex((ib) => ib.id === action.payload.runId);
 
       return {
         ...state,
@@ -136,23 +139,26 @@ export function chatReducer(
           {
             ...state.blocks[index],
             blocks: [
-              ...(state.blocks[index] as ParallelGroupBlock)?.blocks.slice(0, groupMemberIndex) || [],
+              ...((state.blocks[index] as ParallelGroupBlock)?.blocks.slice(
+                0,
+                groupMemberIndex
+              ) || []),
               {
                 id: action.payload.runId,
                 content: action.payload.content,
-                type: 'ai',
+                type: "ai",
                 agentName: action.payload.agentName,
                 error: action.payload.error,
               } as Block,
-              ...(state.blocks[index] as ParallelGroupBlock)?.blocks.slice(groupMemberIndex + 1),
-            ]
+              ...(state.blocks[index] as ParallelGroupBlock)?.blocks.slice(
+                groupMemberIndex + 1
+              ),
+            ],
           },
           ...state.blocks.slice(index + 1),
         ],
-      }
-
-    
-  }
+      };
+    }
 
     case "EDIT_DEFAULT_BLOCK": {
       const index = state.blocks.findIndex((b) => b.id === action.payload.id);
@@ -171,7 +177,7 @@ export function chatReducer(
     }
 
     case "SET_COMPLETION_LOADING": {
-      console.log('SET_COMPLETION_LOADING')
+      console.log("SET_COMPLETION_LOADING");
 
       return {
         ...state,

@@ -5,6 +5,10 @@ import React from "react";
 export async function callRearrangeSwarm(
   sessionId: string,
   prompt: string,
+  context: {
+    agents: Record<string, { name: string; system_prompt: string }>;
+    flow: string;
+  },
   dispatch: React.Dispatch<Action>
 ) {
   const resp = await fetch(
@@ -17,6 +21,8 @@ export async function callRearrangeSwarm(
       body: JSON.stringify({
         sessionId: sessionId,
         content: prompt,
+        agentsConfig: context.agents,
+        flow: context.flow,
       }),
       credentials: "include",
     }
@@ -52,11 +58,7 @@ export async function callRearrangeSwarm(
             multiChunkAcc += chunk[idx];
             const parsedChunk = JSON.parse(multiChunkAcc);
 
-            dispatchEventToState(
-              parsedChunk,
-              dispatch,
-              accMessage
-            );
+            dispatchEventToState(parsedChunk, dispatch, accMessage);
 
             chunk = chunk.substring(idx + 1);
             idx = 0;
@@ -78,54 +80,51 @@ function dispatchEventToState(
   dispatch: React.Dispatch<Action>,
   accMessage: { content: string }
 ) {
-
   // console.log('dispatchEventToState', parsedChunk)
   // console.log('accMessage.content', accMessage.content)
 
-  const runId = parsedChunk["run_id"]
-  const agentName = parsedChunk["agent_name"]
-  const parallelGroupId = parsedChunk["parallel_group_id"]
+  const runId = parsedChunk["run_id"];
+  const agentName = parsedChunk["agent_name"];
+  const parallelGroupId = parsedChunk["parallel_group_id"];
 
   if (parsedChunk["event"] === "on_chat_model_start" && parallelGroupId) {
+    dispatch({
+      type: "ADD_PARALLEL_GROUP_BLOCK",
+      payload: {
+        id: parallelGroupId,
+        parallelGroupId: parallelGroupId,
+        runId: runId,
+        agentName: agentName,
+        content: "",
+        blocks: [],
+        type: "group",
+        error: null,
+      },
+    });
+  } else if (
+    parsedChunk["event"] === "on_chat_model_stream" &&
+    parallelGroupId
+  ) {
+    accMessage.content += parsedChunk["data"];
 
-      dispatch({
-        type: "ADD_PARALLEL_GROUP_BLOCK",
-        payload: {
-          id: parallelGroupId,
-          parallelGroupId: parallelGroupId,
-          runId: runId,
-          agentName: agentName,
-          content: "",
-          blocks: [],
-          type: "group",
-          error: null,
-        },
-      });
+    // debugger;
 
-  } else if (parsedChunk["event"] === "on_chat_model_stream" && parallelGroupId) {
-    
-      accMessage.content += parsedChunk["data"];
-
-      debugger
-
-      dispatch({
-        type: "EDIT_PARALLEL_GROUP_BLOCK",
-        payload: {
-          parallelGroupId: parallelGroupId,
-          runId: runId,
-          agentName: agentName,
-          content: accMessage.content
-        } as {          
-            parallelGroupId: string;
-            runId: string;
-            content: string;
-            error: any;
-            agentName: string;
-        },
-      });
-
+    dispatch({
+      type: "EDIT_PARALLEL_GROUP_BLOCK",
+      payload: {
+        parallelGroupId: parallelGroupId,
+        runId: runId,
+        agentName: agentName,
+        content: accMessage.content,
+      } as {
+        parallelGroupId: string;
+        runId: string;
+        content: string;
+        error: any;
+        agentName: string;
+      },
+    });
   } else if (parsedChunk["event"] === "on_chat_model_start") {
-
     dispatch({
       type: "ADD_DEFAULT_BLOCK",
       payload: {
@@ -136,9 +135,7 @@ function dispatchEventToState(
         error: null,
       },
     });
-
   } else if (parsedChunk["event"] === "on_chat_model_stream") {
-
     accMessage.content += parsedChunk["data"];
     dispatch({
       type: "EDIT_DEFAULT_BLOCK",
@@ -147,12 +144,9 @@ function dispatchEventToState(
         content: accMessage.content,
       },
     });
-
   } else if (parsedChunk["event"] === "on_chat_model_end") {
-
-    console.log('LLM END')
-    accMessage.content = ""
-
+    console.log("LLM END");
+    accMessage.content = "";
   } else {
     console.error("Unknown event:", parsedChunk["event"]);
   }

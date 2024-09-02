@@ -17,8 +17,6 @@ interface P {
 
 export const ChatBlock = memo(
   function ChatBlock(P: P) {
-    // console.log("->->- P.Block -<-<-", P.block);
-
     if (P.block.type === "ai" || P.block.type === "prompt") {
       const hexCode = stringToColor(
         P.block.agentName ?? "76b6788c-3c50-4678-b2bf-a7a0b4da89a9"
@@ -96,7 +94,7 @@ export const ChatBlock = memo(
         </div>
       );
     } else {
-      debugger;
+      // debugger;
       return <div key={P.block.id}>UNSUPPORTED MESSAGE</div>;
     }
   },
