@@ -6,6 +6,8 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useRearrangeSwarmContext } from "@/context/rearrange-context";
 import { Separator } from "@/components/shared/separator";
 import { toast } from "react-toastify";
+import { errorReporter } from "@/shared/errorReporter";
+import { validateFlow } from "@/components/1-rearrange/helpers/validate-flow";
 
 interface P {
   topNavHeight: number;
@@ -30,14 +32,21 @@ export default function CustomizeSwarmDrawer(P: P) {
 
   const handleRemoveAgent = () => {
     if (agentCount > 1) {
+      delete localData.agents[agentCount - 1];
+
+      setLocalData((prevData) => ({
+        ...prevData,
+        agents: {
+          ...localData.agents,
+        },
+      }));
+
       setAgentCount(agentCount - 1);
     }
   };
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;
-
-    // console.log("handleChange", name, value);
 
     if (name.startsWith("agents.")) {
       const [_, agentKey, agentProperty] = name.split(".");
@@ -60,11 +69,23 @@ export default function CustomizeSwarmDrawer(P: P) {
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    setRearrangeSwarmContext(localData);
-    toast.success("Swarm customized successfully");
+      validateFlow({
+        agents: localData.agents,
+        flow: localData.flow,
+      });
+
+      setRearrangeSwarmContext(localData);
+      toast.success("Swarm customized successfully");
+    } catch (error) {
+      errorReporter(error, true);
+      // toast.error("Failed to customize swarm");
+    }
   };
+
+  // console.log(context);
 
   return (
     <Dialog open={P.open} onClose={P.setOpen} className={`relative z-10`}>
@@ -184,12 +205,11 @@ export default function CustomizeSwarmDrawer(P: P) {
                             Flow
                           </label>
                           <div className="mt-2">
-                            <input
+                            <textarea
                               id="flow"
                               name="flow"
                               value={localData?.flow}
                               onChange={handleChange}
-                              type="text"
                               placeholder="Agent 1, Agent 2 -> Agent 3 etc..."
                               className="bg-gray-800 block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                             />
