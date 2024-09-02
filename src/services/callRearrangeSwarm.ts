@@ -106,6 +106,8 @@ function dispatchEventToState(
     
       accMessage.content += parsedChunk["data"];
 
+      debugger
+
       dispatch({
         type: "EDIT_PARALLEL_GROUP_BLOCK",
         payload: {

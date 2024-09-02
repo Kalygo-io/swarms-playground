@@ -103,7 +103,8 @@ export function chatReducer(
             {
               ...state.blocks[index],
               blocks: [
-                ...(state.blocks[index] as ParallelGroupBlock)?.blocks.slice(0, groupMemberIndex) || [],
+                // ...(state.blocks[index] as ParallelGroupBlock)?.blocks.slice(0, groupMemberIndex) || [],
+                ...(state.blocks[index] as ParallelGroupBlock)?.blocks.slice(groupMemberIndex + 1),
                 {
                   id: action.payload.runId,
                   content: action.payload.content,
@@ -111,7 +112,6 @@ export function chatReducer(
                   agentName: action.payload.agentName,
                   error: action.payload.error,
                 } as Block,
-                ...(state.blocks[index] as ParallelGroupBlock)?.blocks.slice(groupMemberIndex + 1),
               ]
             },
             ...state.blocks.slice(index + 1),
