@@ -1,8 +1,10 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useRearrangeSwarmContext } from "@/context/rearrange-context";
+import { Separator } from "@/components/shared/separator";
 
 interface P {
   topNavHeight: number;
@@ -12,6 +14,7 @@ interface P {
 
 export default function CustomizeSwarmDrawer(P: P) {
   const [agentCount, setAgentCount] = useState(3);
+  const { data, setData } = useRearrangeSwarmContext();
 
   const handleAddAgent = () => {
     if (agentCount < 10) {
@@ -24,6 +27,39 @@ export default function CustomizeSwarmDrawer(P: P) {
       setAgentCount(agentCount - 1);
     }
   };
+
+  const handleChange = (e: { target: { name: any; value: any } }) => {
+    const { name, value } = e.target;
+
+    // console.log("handleChange", name, value);
+
+    if (name.startsWith("agents.")) {
+      const [_, agentKey, agentProperty] = name.split(".");
+      setData((prevData) => ({
+        ...prevData,
+        agents: {
+          ...prevData.agents,
+          [agentKey]: {
+            ...prevData.agents[agentKey],
+            [agentProperty]: value,
+          },
+        },
+      }));
+    } else {
+      setData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Do something with the formData, like sending it to an API
+    console.log(data);
+  };
+
+  // console.log("data.flow", data?.flow);
 
   return (
     <Dialog open={P.open} onClose={P.setOpen} className={`relative z-10`}>
@@ -38,7 +74,10 @@ export default function CustomizeSwarmDrawer(P: P) {
               transition
               className="pointer-events-auto w-screen max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700 border-gray-900 border-l-2"
             >
-              <form className="flex h-full flex-col divide-y divide-gray-700 bg-gray-800 shadow-xl">
+              <form
+                className="flex h-full flex-col divide-y divide-gray-700 bg-gray-800 shadow-xl"
+                onSubmit={handleSubmit}
+              >
                 <div className="h-0 flex-1 overflow-y-auto">
                   <div className="bg-black px-4 py-6 sm:px-6">
                     <div className="flex items-center justify-between">
@@ -78,15 +117,35 @@ export default function CustomizeSwarmDrawer(P: P) {
                             </label>
                             <div className="mt-2">
                               {[...Array(agentCount)].map((_, index) => (
-                                <textarea
-                                  key={index}
-                                  id={`agent-${index}`}
-                                  name={`agent-${index}`}
-                                  placeholder={`System Prompt for Agent ${
-                                    index + 1
-                                  }`}
-                                  className="bg-gray-800 block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 mt-2 resize-none h-14"
-                                />
+                                <>
+                                  <fieldset className="border border-gray-400 p-2 rounded-md">
+                                    <legend className="text-gray-400 text-sm px-1">
+                                      Agent {index + 1}
+                                    </legend>
+                                    {/* Rest of the code */}
+
+                                    <input
+                                      id={`agents.${index}.name`}
+                                      name={`agents.${index}.name`}
+                                      value={data?.agents?.[index]?.name}
+                                      onChange={handleChange}
+                                      placeholder={`Agent name`}
+                                      className="bg-gray-800 block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 mt-2"
+                                    />
+                                    <textarea
+                                      key={index}
+                                      id={`agents.${index}.system_prompt`}
+                                      name={`agents.${index}.system_prompt`}
+                                      value={
+                                        data?.agents?.[index]?.system_prompt
+                                      }
+                                      onChange={handleChange}
+                                      placeholder={`System prompt`}
+                                      className="bg-gray-800 block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 mt-2 resize-none h-14"
+                                    />
+                                  </fieldset>
+                                  <Separator className="my-4 bg-gray-400" />
+                                </>
                               ))}
                             </div>
                             <div className="flex justify-end mt-2">
@@ -111,15 +170,17 @@ export default function CustomizeSwarmDrawer(P: P) {
                         </div>
                         <div>
                           <label
-                            htmlFor="project-name"
+                            htmlFor="flow-name"
                             className="block text-sm font-medium leading-6 text-gray-200"
                           >
                             Flow
                           </label>
                           <div className="mt-2">
                             <input
-                              id="project-name"
-                              name="project-name"
+                              id="flow"
+                              name="flow"
+                              value={data?.flow}
+                              onChange={handleChange}
                               type="text"
                               placeholder="Agent 1, Agent 2 -> Agent 3 etc..."
                               className="bg-gray-800 block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
