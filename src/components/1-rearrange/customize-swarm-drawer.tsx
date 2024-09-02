@@ -98,7 +98,7 @@ export default function CustomizeSwarmDrawer(P: P) {
           >
             <DialogPanel
               transition
-              className="pointer-events-auto w-screen max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700 border-gray-900 border-l-2"
+              className="pointer-events-auto w-screen max-w-96 transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700 border-gray-900 border-l-2"
             >
               <form
                 className="flex h-full flex-col divide-y divide-gray-700 bg-gray-800 shadow-xl"
@@ -124,8 +124,7 @@ export default function CustomizeSwarmDrawer(P: P) {
                     </div>
                     <div className="mt-1">
                       <p className="text-sm text-blue-300">
-                        Customize your &apos;Rearrange&apos; Swarm using the
-                        form below
+                        Customize your Rearrange Swarm using the form below
                       </p>
                     </div>
                   </div>

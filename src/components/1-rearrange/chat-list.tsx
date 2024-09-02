@@ -13,8 +13,11 @@ export function ChatList(P: P) {
   }
 
   return (
-    <div className="relative mx-auto lg:max-w-[calc(100%-18rem)] px-4">
-      {P.blocks.map((block: (Block | ParallelGroupBlock), index: number) => {
+    // <div className="relative mx-auto lg:max-w-[calc(100%-18rem)] px-4">
+    // <div className="relative mx-auto px-4 lg:pr-8">
+    // <div className="mx-auto lg:pl-72 lg:pr-96">
+    <div>
+      {P.blocks.map((block: Block | ParallelGroupBlock, index: number) => {
         return <ChatBlock key={block.id} index={index} block={block} />;
       })}
 
