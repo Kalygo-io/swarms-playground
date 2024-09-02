@@ -86,12 +86,11 @@ export const ChatBlock = memo(
         
         <div key={P.block.id}>
           <div className="group relative mb-4 items-start bg-slate-300 p-4 rounded-md flex">
-            <div className="flex size-8 shrink-0 select-none items-center justify-center rounded-md border shadow bg-primary text-primary-foreground">
-              <GiArtificialIntelligence color={hexCode} />
+            <div className="flex size-8 shrink-0 select-none items-center justify-center">
+              {/* <GiArtificialIntelligence color={hexCode} /> */}
             </div>
             <div className="px-1 space-y-2 overflow-hidden ml-4">
               <b className="text-lg">PARALLEL</b>
-              {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mx-auto"> */}
               <div className="flex flex-col space-y-2 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-2 mx-auto">
                 {
                   P.block.blocks?.map((block, index) => {

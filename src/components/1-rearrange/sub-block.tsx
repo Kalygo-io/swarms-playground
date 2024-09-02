@@ -30,14 +30,11 @@ export const SubBlock = memo(
           <div
 
             className={cn(
-              // "group relative mb-4 items-start bg-white p-4 rounded-md",
               "bg-white p-4 rounded-md",
-              // "flex",
             )}
           >
             <div
               className={cn(
-                // "flex size-8 shrink-0 select-none items-center justify-center rounded-md border shadow",
                 P.block.type === "prompt"
                   ? "bg-background"
                   : "bg-primary text-primary-foreground",
