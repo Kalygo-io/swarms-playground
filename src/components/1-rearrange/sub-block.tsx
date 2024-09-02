@@ -8,16 +8,15 @@ import ReactMarkdown from "react-markdown";
 import { stringToColor } from "@/shared/uuidToColorCode";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
-import { SubBlock } from "@/components/1-rearrange/sub-block";
 
 interface P {
   index: number;
   block: Block | ParallelGroupBlock;
 }
 
-export const ChatBlock = memo(
+export const SubBlock = memo(
   
-  function ChatBlock(P: P) {
+  function SubBlock(P: P) {
 
     console.log('->->- P.Block -<-<-', P.block)
     
@@ -26,17 +25,19 @@ export const ChatBlock = memo(
       const hexCode = stringToColor(P.block.agentName ?? "76b6788c-3c50-4678-b2bf-a7a0b4da89a9");
 
       return (
+
         <div key={P.block.id}>
           <div
+
             className={cn(
-              "group relative mb-4 items-start bg-white p-4 rounded-md",
-              P.block.type === "prompt" ? "bg-white" : "bg-gray-50",
-              "flex",
+              // "group relative mb-4 items-start bg-white p-4 rounded-md",
+              "bg-white p-4 rounded-md",
+              // "flex",
             )}
           >
             <div
               className={cn(
-                "flex size-8 shrink-0 select-none items-center justify-center rounded-md border shadow",
+                // "flex size-8 shrink-0 select-none items-center justify-center rounded-md border shadow",
                 P.block.type === "prompt"
                   ? "bg-background"
                   : "bg-primary text-primary-foreground",
@@ -76,36 +77,8 @@ export const ChatBlock = memo(
               </ReactMarkdown>
             </div>
           </div>
-          <Separator className="my-4 bg-gray-100" />
         </div>
       );
-    } else if (P.block.type === "group") {
-      const hexCode = stringToColor(P.block.parallelGroupId);
-
-      return (
-        
-        <div key={P.block.id}>
-          <div className="group relative mb-4 items-start bg-slate-300 p-4 rounded-md flex">
-            <div className="flex size-8 shrink-0 select-none items-center justify-center rounded-md border shadow bg-primary text-primary-foreground">
-              <GiArtificialIntelligence color={hexCode} />
-            </div>
-            <div className="px-1 space-y-2 overflow-hidden ml-4">
-              <b className="text-lg">PARALLEL</b>
-              {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mx-auto"> */}
-              <div className="flex flex-col space-y-2 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-2 mx-auto">
-                {
-                  P.block.blocks?.map((block, index) => {
-                    return (
-                      <SubBlock key={block.id} index={index} block={block}/>
-                    )
-                  })
-                }
-              </div>
-            </div>
-          </div>
-          <Separator className="my-4 bg-gray-100" />
-        </div>
-      )
     } else {
       debugger
       return <div key={P.block.id}>UNSUPPORTED MESSAGE</div>;
