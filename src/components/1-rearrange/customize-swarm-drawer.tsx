@@ -66,7 +66,7 @@ export default function CustomizeSwarmDrawer(P: P) {
                 <div className="h-0 flex-1 overflow-y-auto">
                   <div className="bg-black px-4 py-6 sm:px-6">
                     <div className="flex items-center justify-between">
-                      <DialogTitle className="text-base font-semibold leading-6 text-white">Customize Swarm</DialogTitle>
+                      <DialogTitle className="text-base font-semibold leading-6 text-white">Customize</DialogTitle>
                       <div className="ml-3 flex h-7 items-center">
                         <button
                           type="button"

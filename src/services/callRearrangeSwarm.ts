@@ -1,8 +1,8 @@
-import { Action } from "@/app/dashboard/1-sequential/chat-session-reducer";
+import { Action } from "@/app/dashboard/1-rearrange/chat-session-reducer";
 import { nanoid } from "@/shared/utils";
 import React from "react";
 
-export async function callSequentialSwarm(
+export async function callRearrangeSwarm(
   sessionId: string,
   prompt: string,
   dispatch: React.Dispatch<Action>
@@ -79,38 +79,78 @@ function dispatchEventToState(
   accMessage: { content: string }
 ) {
 
-  console.log('dispatchEventToState', parsedChunk)
+  // console.log('dispatchEventToState', parsedChunk)
+  // console.log('accMessage.content', accMessage.content)
 
-  console.log('accMessage.content', accMessage.content)
-
-  const messageId = parsedChunk["run_id"]
+  const runId = parsedChunk["run_id"]
   const agentName = parsedChunk["agent_name"]
+  const parallelGroupId = parsedChunk["parallel_group_id"]
 
-  if (parsedChunk["event"] === "on_chat_model_start") {
-    // debugger
+  if (parsedChunk["event"] === "on_chat_model_start" && parallelGroupId) {
+
+      dispatch({
+        type: "ADD_PARALLEL_GROUP_BLOCK",
+        payload: {
+          id: parallelGroupId,
+          parallelGroupId: parallelGroupId,
+          runId: runId,
+          agentName: agentName,
+          content: "",
+          blocks: [],
+          type: "group",
+          error: null,
+        },
+      });
+
+  } else if (parsedChunk["event"] === "on_chat_model_stream" && parallelGroupId) {
+    
+      accMessage.content += parsedChunk["data"];
+
+      dispatch({
+        type: "EDIT_PARALLEL_GROUP_BLOCK",
+        payload: {
+          parallelGroupId: parallelGroupId,
+          runId: runId,
+          agentName: agentName,
+          content: accMessage.content
+        } as {          
+            parallelGroupId: string;
+            runId: string;
+            content: string;
+            error: any;
+            agentName: string;
+        },
+      });
+
+  } else if (parsedChunk["event"] === "on_chat_model_start") {
 
     dispatch({
-      type: "ADD_MESSAGE",
+      type: "ADD_DEFAULT_BLOCK",
       payload: {
-        id: messageId,
+        id: runId,
         agentName: agentName,
         content: "",
-        role: "ai",
+        type: "ai",
         error: null,
       },
     });
+
   } else if (parsedChunk["event"] === "on_chat_model_stream") {
+
     accMessage.content += parsedChunk["data"];
     dispatch({
-      type: "EDIT_MESSAGE",
+      type: "EDIT_DEFAULT_BLOCK",
       payload: {
-        id: messageId,
+        id: runId,
         content: accMessage.content,
       },
     });
+
   } else if (parsedChunk["event"] === "on_chat_model_end") {
+
     console.log('LLM END')
     accMessage.content = ""
+
   } else {
     console.error("Unknown event:", parsedChunk["event"]);
   }

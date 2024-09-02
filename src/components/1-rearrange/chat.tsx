@@ -1,13 +1,13 @@
 "use client";
 
-import { ChatContext } from "@/app/dashboard/1-sequential/chat-session-context";
-import { ChatList } from "@/components/1-sequential/chat-list";
-import { ChatPanel } from "@/components/1-sequential/chat-panel";
-import { EmptyScreen } from "@/components/1-sequential/empty-screen";
+import { ChatContext } from "@/app/dashboard/1-rearrange/chat-session-context";
+import { ChatList } from "@/components/1-rearrange/chat-list";
+import { ChatPanel } from "@/components/1-rearrange/chat-panel";
+import { EmptyScreen } from "@/components/1-rearrange/empty-screen";
 import { useScrollAnchor } from "@/shared/hooks/use-scroll-anchor";
 import { cn } from "@/shared/utils";
 import { useContext, useEffect, useState } from "react";
-import CustomizeSwarmDrawer from "@/components/1-sequential/customize-swarm-drawer";
+import CustomizeSwarmDrawer from "@/components/1-rearrange/customize-swarm-drawer";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 
 export interface ChatProps extends React.ComponentProps<"div"> {}
@@ -22,7 +22,7 @@ export function Chat({ id, className }: ChatProps) {
 
   useEffect(() => {
     scrollToBottom();
-  }, [chatState.messages, scrollToBottom]);
+  }, [chatState.blocks, scrollToBottom]);
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
@@ -46,9 +46,9 @@ export function Chat({ id, className }: ChatProps) {
         ref={scrollRef}
       >
         <div className={cn("pb-[200px]", className)} ref={messagesRef}>
-          {chatState.messages.length ? (
+          {chatState.blocks.length ? (
             <ChatList
-              messages={chatState.messages}
+              blocks={chatState.blocks}
               isCompletionLoading={chatState.completionLoading}
             />
           ) : (

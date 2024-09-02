@@ -1,20 +1,21 @@
-import { ChatMessage } from "@/components/1-sequential/chat-message";
-import { Message } from "@/ts/types/Message";
+import { ChatBlock } from "@/components/1-rearrange/chat-block";
+import { Block } from "@/ts/types/Block";
+import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
 
 export interface P {
   isCompletionLoading: boolean;
-  messages: Message[];
+  blocks: (Block | ParallelGroupBlock)[];
 }
 
 export function ChatList(P: P) {
-  if (!P.messages.length) {
+  if (!P.blocks.length) {
     return null;
   }
 
   return (
     <div className="relative mx-auto lg:max-w-[calc(100%-18rem)] px-4">
-      {P.messages.map((message: Message, index: number) => {
-        return <ChatMessage key={message.id} index={index} message={message} />;
+      {P.blocks.map((block: (Block | ParallelGroupBlock), index: number) => {
+        return <ChatBlock key={block.id} index={index} block={block} />;
       })}
 
       {P.isCompletionLoading && (

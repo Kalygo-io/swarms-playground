@@ -9,3 +9,16 @@ export function uuidToColor(uuid: string) {
   
   return color;
 }
+
+export function stringToColor(str: string) {
+  // Calculate the hash code of the string
+  let hashCode = 0;
+  for (let i = 0; i < str.length; i++) {
+    hashCode = str.charCodeAt(i) + ((hashCode << 5) - hashCode);
+  }
+  
+  // Convert the hash code to a hex color code
+  const color = `#${((hashCode & 0x00FFFFFF) | 0x1000000).toString(16).slice(1)}`;
+  
+  return color;
+}

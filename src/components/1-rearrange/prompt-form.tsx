@@ -2,10 +2,10 @@
 
 import * as React from "react";
 
-import { ChatDispatchContext } from "@/app/dashboard/1-sequential/chat-session-context";
+import { ChatDispatchContext } from "@/app/dashboard/1-rearrange/chat-session-context";
 import { useEnterSubmit } from "@/shared/hooks/use-enter-submit";
 import { nanoid } from "@/shared/utils";
-import { callSequentialSwarm } from "@/services/callSequentialSwarm";
+import { callRearrangeSwarm } from "@/services/callRearrangeSwarm";
 import { useRouter } from "next/navigation";
 
 export function PromptForm({
@@ -36,11 +36,11 @@ export function PromptForm({
           if (!prompt) return;
 
           dispatch({
-            type: "ADD_MESSAGE",
+            type: "ADD_DEFAULT_BLOCK",
             payload: {
               id: humanMessageId,
               content: prompt,
-              role: "human",
+              type: "prompt",
               error: null,
             },
           });
@@ -50,7 +50,7 @@ export function PromptForm({
             payload: true,
           });
 
-          await callSequentialSwarm(sessionId, prompt, dispatch);
+          await callRearrangeSwarm(sessionId, prompt, dispatch);
 
           dispatch({
             type: "SET_COMPLETION_LOADING",
@@ -62,7 +62,7 @@ export function PromptForm({
             payload: false,
           });
           dispatch({
-            type: "EDIT_MESSAGE",
+            type: "EDIT_DEFAULT_BLOCK",
             payload: {
               id: humanMessageId,
               error: error,

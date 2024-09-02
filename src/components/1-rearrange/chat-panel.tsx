@@ -1,4 +1,4 @@
-import { PromptForm } from "@/components/1-sequential/prompt-form";
+import { PromptForm } from "@/components/1-rearrange/prompt-form";
 
 export interface ChatPanelProps {
   sessionId: string;
@@ -16,7 +16,7 @@ export function ChatPanel({ input, setInput, sessionId }: ChatPanelProps) {
         <div className="space-y-4 border-t bg-white px-4 py-2 shadow-lg sm:rounded-t-xl sm:border md:py-4">
           <PromptForm input={input} setInput={setInput} sessionId={sessionId} />
           <p className="text-muted-foreground px-2 text-center text-xs leading-normal hidden sm:block">
-            A SWARMS x Kalygo experiment 🧪
+            A Swarms x Kalygo experiment 🧪
           </p>
         </div>
       </div>
