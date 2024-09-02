@@ -43,18 +43,18 @@ export function Chat({ id, className }: ChatProps) {
             ref={scrollRef}
           >
             <div className={cn("pb-[200px]", className)} ref={messagesRef}>
-              <ChatList
+              {/* <ChatList
                 blocks={chatState.blocks}
                 isCompletionLoading={chatState.completionLoading}
-              />
-              {/* {chatState.blocks.length ? (
-                  <ChatList
-                    blocks={chatState.blocks}
-                    isCompletionLoading={chatState.completionLoading}
-                  />
-                ) : (
-                  <EmptyScreen />
-                )} */}
+              /> */}
+              {chatState.blocks.length ? (
+                <ChatList
+                  blocks={chatState.blocks}
+                  isCompletionLoading={chatState.completionLoading}
+                />
+              ) : (
+                <EmptyScreen />
+              )}
             </div>
             <ChatPanel
               sessionId={chatState.sessionId}
