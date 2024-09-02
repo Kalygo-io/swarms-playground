@@ -27,11 +27,11 @@ export const AuthForm = () => {
     try {
       e.preventDefault();
       await registerAccount(registerEmail, registerPassword);
-      console.log('after registerAccount...')
+      console.log("after registerAccount...");
       await loginRequest(registerEmail, registerPassword);
       router.push("/dashboard");
     } catch (err) {
-      errorReporter(err)
+      errorReporter(err);
     }
   };
 
@@ -41,12 +41,12 @@ export const AuthForm = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
+      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+        <div className="w-full max-w-md p-8 space-y-6 bg-black rounded shadow-md">
           <div className="text-center text-3xl">🔴🔵</div>
           <div className="mb-6 text-center">
-            <h1 className="text-3xl font-bold text-gray-900">
-              { CONFIG.applicationName }
+            <h1 className="text-3xl font-bold text-gray-200">
+              {CONFIG.applicationName}
             </h1>
           </div>
           <h2 className="text-2xl font-bold text-center">
@@ -59,7 +59,7 @@ export const AuthForm = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-200"
               >
                 Email
               </label>
@@ -75,13 +75,13 @@ export const AuthForm = () => {
                     : (e) => setRegisterEmail(e.target.value)
                 }
                 required
-                className="w-full px-3 py-2 mt-1 border border-slate-500 rounded shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="bg-gray-800 w-full px-3 py-2 mt-1 border border-gray-700 text-gray-200 rounded shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
             </div>
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
+                className="block text-sm font-medium text-gray-200"
               >
                 Password
               </label>
@@ -97,7 +97,7 @@ export const AuthForm = () => {
                     : (e) => setRegisterPassword(e.target.value)
                 }
                 required
-                className="w-full px-3 py-2 mt-1 border border-slate-500 rounded shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="bg-gray-800 w-full px-3 py-2 mt-1 border border-gray-700 text-gray-200 rounded shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
             </div>
             <button
@@ -107,11 +107,11 @@ export const AuthForm = () => {
               {isLogin ? "Login" : "Register"}
             </button>
           </form>
-          <p className="text-sm text-center text-gray-600">
+          <p className="text-sm text-center text-gray-200">
             {isLogin ? "Don't have an account?" : "Already have an account?"}
             <button
               onClick={toggleForm}
-              className="ml-1 font-medium text-blue-600 hover:text-blue-500 focus:outline-none"
+              className="ml-1 font-medium text-blue-200 hover:text-blue-300 focus:outline-none"
             >
               {isLogin ? "Register" : "Login"}
             </button>

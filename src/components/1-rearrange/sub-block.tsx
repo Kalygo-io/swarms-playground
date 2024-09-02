@@ -15,37 +15,24 @@ interface P {
 }
 
 export const SubBlock = memo(
-  
   function SubBlock(P: P) {
+    console.log("->->- P.Block -<-<-", P.block);
 
-    console.log('->->- P.Block -<-<-', P.block)
-    
     if (P.block.type === "ai" || P.block.type === "prompt") {
-
-      const hexCode = stringToColor(P.block.agentName ?? "76b6788c-3c50-4678-b2bf-a7a0b4da89a9");
+      const hexCode = stringToColor(
+        P.block.agentName ?? "76b6788c-3c50-4678-b2bf-a7a0b4da89a9"
+      );
 
       return (
-
         <div key={P.block.id}>
           <div
-
             className={cn(
-              "bg-white p-4 rounded-md",
+              "bg-gray-900 p-4 rounded-md border border-gray-800 text-gray-200",
+              `${P.block.error && "text-red-600"}`
             )}
           >
-            <div
-              className={cn(
-                P.block.type === "prompt"
-                  ? "bg-background"
-                  : "bg-primary text-primary-foreground",
-                `${P.block.error && "text-red-600"}`
-              )}
-            >
-              {P.block.type === "prompt" ? (
-                <BiUser />
-              ) : (
-                <GiArtificialIntelligence color={hexCode} />
-              )}
+            <div>
+              <GiArtificialIntelligence color={hexCode} />
             </div>
             <div
               className={cn(
@@ -77,7 +64,7 @@ export const SubBlock = memo(
         </div>
       );
     } else {
-      debugger
+      debugger;
       return <div key={P.block.id}>UNSUPPORTED MESSAGE</div>;
     }
   },

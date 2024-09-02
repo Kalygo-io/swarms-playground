@@ -14,7 +14,7 @@ export interface ChatProps extends React.ComponentProps<"div"> {}
 
 export function Chat({ id, className }: ChatProps) {
   const [input, setInput] = useState("");
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(true);
   const [topNavElClientHeight, setTopNavElClientHeight] = useState(0);
   const chatState = useContext(ChatContext);
   const { messagesRef, scrollRef, isAtBottom, scrollToBottom } =
@@ -35,11 +35,8 @@ export function Chat({ id, className }: ChatProps) {
 
   return (
     <>
-      <div
-          className={`fixed top-16 right-0 m-4`}
-          onClick={toggleDrawer}
-        >
-          <Cog6ToothIcon className="w-6 h-6 text-black cursor-pointer group-hover:text-gray-700" />
+      <div className={`fixed top-16 right-0 m-4`} onClick={toggleDrawer}>
+        <Cog6ToothIcon className="w-6 h-6 text-white cursor-pointer group-hover:text-gray-700" />
       </div>
       <div
         className="group w-full overflow-auto pl-0 peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]"
@@ -63,10 +60,12 @@ export function Chat({ id, className }: ChatProps) {
           scrollToBottom={scrollToBottom}
         />
       </div>
-      
-      <div className="mt-8">
-        <CustomizeSwarmDrawer topNavHeight={topNavElClientHeight} open={drawerOpen} setOpen={setDrawerOpen}/>
-      </div>
+
+      <CustomizeSwarmDrawer
+        topNavHeight={topNavElClientHeight}
+        open={drawerOpen}
+        setOpen={setDrawerOpen}
+      />
     </>
   );
 }

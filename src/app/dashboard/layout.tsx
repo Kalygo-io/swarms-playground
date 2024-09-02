@@ -247,7 +247,7 @@ export default function Layout({
                 <li>
                   <span
                     onClick={async () => {
-                      await logoutRequest()
+                      await logoutRequest();
                       router.push("/");
                     }}
                     className={classNames(
@@ -268,7 +268,10 @@ export default function Layout({
         </div>
 
         <div className="lg:pl-72">
-          <div id="dashboard-sticky-top-nav" className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+          <div
+            id="dashboard-sticky-top-nav"
+            className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-900 bg-black text-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8"
+          >
             <button
               type="button"
               onClick={() => setSidebarOpen(true)}
@@ -293,7 +296,7 @@ export default function Layout({
                     <span className="hidden lg:flex lg:items-center">
                       <span
                         aria-hidden="true"
-                        className="ml-4 text-sm font-semibold leading-6 text-gray-900"
+                        className="ml-4 text-sm font-semibold leading-6"
                       >
                         Account
                       </span>
