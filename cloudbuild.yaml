@@ -1,0 +1,17 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-f",
+        "Dockerfile",
+        "-t",
+        "us-central1-docker.pkg.dev/kalygo-v3/kalygo-v3-nextjs/kalygo-v3-nextjs",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "us-central1-docker.pkg.dev/kalygo-v3/kalygo-v3-nextjs/kalygo-v3-nextjs:latest",
+      ]
