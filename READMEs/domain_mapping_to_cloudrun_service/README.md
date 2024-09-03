@@ -10,4 +10,4 @@ Notes related to how to map a domain name to a Cloud Run service
 - Go to the GCR service dashboard & visit the `INTEGRATIONS` tab
   - Add integration
   - Custom domains - Google Cloud Load Balancing
-  - 
+- Map your desired domain name to your relevant GCR service
