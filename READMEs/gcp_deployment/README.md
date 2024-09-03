@@ -30,7 +30,7 @@ gcloud artifacts repositories create REPOSITORY \
 ``` ie:
 gcloud artifacts repositories create kalygo3-nextjs \
   --repository-format=docker \
-  --location=us-east1 \
+  --location=us-central1 \
   --description="Docker repository for Kalygo 3.0 web app" \
   --immutable-tags \
   --async
@@ -93,9 +93,9 @@ gcloud artifacts repositories create kalygo3-nextjs \
   - ie: .env vars
   ```
   PROJECT_ID: kalygo-v3 # Google Cloud project id
-  GAR_LOCATION: us-east1 # Artifact Registry location
+  GAR_LOCATION: us-central1 # Artifact Registry location
   SERVICE: kalygo3-nextjs-service # Cloud Run service name
   REGION: us-east1 # Cloud Run service region
-  ARTIFACTORY_URL: us-east1-docker.pkg.dev/kalygo-v3/kalygo3-nextjs/kalygo3-nextjs
+  ARTIFACTORY_URL: us-central1-docker.pkg.dev/kalygo-v3/kalygo3-nextjs/kalygo3-nextjs
   ```
 - Test commit and push to `main` branch
