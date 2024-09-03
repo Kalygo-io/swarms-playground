@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SWARMS x Kalygo",
+  title: "Swarms Playground",
   description: "Made in Miami",
 };
 
