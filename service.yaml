@@ -1,0 +1,12 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: kalygo3-nextjs-service
+spec:
+  template:
+    spec:
+      containers:
+        - image: us-east1-docker.pkg.dev/kalygo-v3/kalygo3-nextjs/kalygo3-nextjs:latest
+          env:
+          ports:
+            - containerPort: 3000

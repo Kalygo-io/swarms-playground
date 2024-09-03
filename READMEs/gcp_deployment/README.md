@@ -54,3 +54,13 @@ gcloud artifacts repositories create kalygo3-nextjs \
 - `gcloud services enable cloudbuild.googleapis.com`
 - `gcloud builds submit --region=us-central1 --config cloudbuild.yaml`
   - REFERENCE: https://cloud.google.com/build/docs/locations#restricted_regions_for_some_projects
+- CONFIRM IMAGE WAS STORED: `https://console.cloud.google.com/artifacts/docker/kalygo-v3/us-east1/kalygo3-nextjs?hl=en&project=kalygo-v3`
+
+## 3. Cloud Run
+
+- `gcloud services enable run.googleapis.com`
+- `gcloud services list --enabled`
+- `touch service.yaml`
+- `gcloud run services replace service.yaml --region us-east1`
+- `touch gcr-service-policy.yaml` <!-- This makes the service accessible on the internet -->
+- `gcloud run services set-iam-policy kalygo3-nextjs-service gcr-service-policy.yaml --region us-east1`

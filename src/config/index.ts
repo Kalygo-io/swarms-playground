@@ -1,4 +1,3 @@
 export const CONFIG = {
-  applicationName: "SWARMS x Kalygo",
-  
-}
+  applicationName: "Swarms Playground",
+};
