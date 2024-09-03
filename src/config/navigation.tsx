@@ -7,13 +7,13 @@ export const navigation = [
     icon: FaDiceOne,
   },
   {
-    name: "Hierarchical Swarm",
-    href: "/dashboard/2-hierarchical",
+    name: "Spreadsheet Swarm",
+    href: "/dashboard/2-spreadsheet",
     icon: FaDiceTwo,
   },
   {
-    name: "Spreadsheet Swarm",
-    href: "/dashboard/3-spreadsheet",
+    name: "T.B.D.",
+    href: "/dashboard/3-tbd",
     icon: FaDiceThree,
   },
 ];

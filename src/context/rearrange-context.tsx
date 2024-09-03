@@ -1,9 +1,6 @@
 "use client";
 
-import { registerAccount } from "@/services/registerAccount";
-import { useRouter } from "next/navigation";
 import React, { createContext, useState, useContext } from "react";
-import { toast } from "react-toastify";
 
 interface IRearrangeSwarmContext {
   context: {
@@ -62,7 +59,7 @@ export const useRearrangeSwarmContext = () => {
   const context = useContext(RearrangeSwarmContext);
 
   if (context === undefined) {
-    throw new Error("useFormData must be used within a FormDataProvider");
+    throw new Error("Custom Hook must be used within the relevant Provider");
   }
   return context;
 };
