@@ -40,15 +40,15 @@ gcloud artifacts repositories create kalygo3-nextjs \
 ## 2. Cloud Build
 
 - update `next.config.mjs`
-```
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // reactStrictMode: true,
-  output: "standalone",
-};
-
-export default nextConfig;
-```
+  - REFERENCE: https://nextjs.org/docs/pages/api-reference/next-config-js/output#automatically-copying-traced-files
+  ```
+  /** @type {import('next').NextConfig} */
+  const nextConfig = {
+    // reactStrictMode: true,
+    output: "standalone",
+  };
+  export default nextConfig;
+  ```
 - REFERENCE: https://cloud.google.com/build/docs/build-push-docker-image#build_an_image_using_a_build_config_file
 - `touch cloudbuild.yaml`
 - `gcloud services enable cloudbuild.googleapis.com`

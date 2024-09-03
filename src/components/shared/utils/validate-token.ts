@@ -4,10 +4,6 @@ import { redirect } from "next/navigation";
 
 export async function protectedPageGuard() {
   try {
-    console.log();
-    console.log("protectedPageGuard");
-    console.log();
-
     const cookieStore = cookies();
     const jwtCookie = cookieStore.get("jwt");
 
