@@ -30,19 +30,24 @@ export const RearrangeSwarmProvider = ({
   }>({
     agents: {
       "0": {
-        name: "J.K. Rowling",
-        system_prompt: "Write like J.K. Rowling",
+        name: "John D. Rockefeller",
+        system_prompt: "Respond as John D. Rockefeller",
       },
       "1": {
-        name: "Stephen King",
-        system_prompt: "Write like Stephen King",
+        name: "Warren Buffet",
+        system_prompt: "Respond as Warren Buffet",
       },
       "2": {
-        name: "Reviewer",
-        system_prompt: "Judge who produced the best output",
+        name: "Steve Jobs",
+        system_prompt: "Respond as Steve Jobs",
+      },
+      "3": {
+        name: "Synthesizer",
+        system_prompt:
+          "Format your input in a way that is easy to read and digest",
       },
     },
-    flow: "J.K. Rowling, Stephen King -> Reviewer",
+    flow: "John D. Rockefeller, Warren Buffet, Steve Jobs -> Synthesizer",
   });
 
   return (

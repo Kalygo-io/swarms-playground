@@ -16,7 +16,7 @@ interface P {
 }
 
 export default function CustomizeSwarmDrawer(P: P) {
-  const [agentCount, setAgentCount] = useState(3);
+  const [agentCount, setAgentCount] = useState(4);
   const { context, setRearrangeSwarmContext } = useRearrangeSwarmContext();
 
   const [localData, setLocalData] = useState({
