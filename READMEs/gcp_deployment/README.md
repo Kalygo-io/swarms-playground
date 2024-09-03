@@ -94,8 +94,8 @@ gcloud artifacts repositories create kalygo3-nextjs \
   ```
   PROJECT_ID: kalygo-v3 # Google Cloud project id
   GAR_LOCATION: us-central1 # Artifact Registry location
-  SERVICE: kalygo3-nextjs-service # Cloud Run service name
-  REGION: us-east1 # Cloud Run service region
+  SERVICE_NAME: kalygo3-nextjs-service # Cloud Run service name
+  SERVICE_REGION: us-east1 # Cloud Run service region
   ARTIFACTORY_URL: us-central1-docker.pkg.dev/kalygo-v3/kalygo3-nextjs/kalygo3-nextjs
   ```
 - Test commit and push to `main` branch
