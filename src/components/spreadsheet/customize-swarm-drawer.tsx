@@ -7,7 +7,7 @@ import { useSpreadsheetSwarmContext } from "@/context/spreadsheet-context";
 import { Separator } from "@/components/shared/separator";
 import { toast } from "react-toastify";
 import { errorReporter } from "@/shared/errorReporter";
-import { validateFlow } from "@/components/2-spreadsheet/helpers/validate-flow";
+import { validateFlow } from "@/components/spreadsheet/helpers/validate-flow";
 
 interface P {
   topNavHeight: number;
