@@ -18,9 +18,13 @@ export const AuthForm = () => {
   const [registerPassword, setRegisterPassword] = useState("");
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    // await loginRequest(email, password);
-    router.push("/dashboard");
+    try {
+      e.preventDefault();
+      await loginRequest(email, password);
+      router.push("/dashboard");
+    } catch (err) {
+      errorReporter(err);
+    }
   };
 
   const handleRegister = async (e: { preventDefault: () => void }) => {
