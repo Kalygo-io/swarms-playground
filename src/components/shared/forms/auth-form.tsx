@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 export const AuthForm = () => {
   const router = useRouter();
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,17 +43,21 @@ export const AuthForm = () => {
     setIsLogin(!isLogin);
   };
 
+  const handleResetPassword = () => {
+    router.push("/request-password-reset");
+  };
+
   return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-gray-900">
         <div className="w-full max-w-md p-8 space-y-6 bg-black rounded shadow-md">
           <div className="text-center text-3xl">🔴🔵</div>
           <div className="mb-6 text-center">
-            <h1 className="text-3xl font-bold text-gray-200">
+            <h1 className="text-3xl uppercase font-bold text-gray-200">
               {CONFIG.applicationName}
             </h1>
           </div>
-          <h2 className="text-2xl font-bold text-center">
+          <h2 className="text-2xl font-bold text-center text-gray-200">
             {isLogin ? "Login" : "Register"}
           </h2>
           <form
@@ -120,6 +124,19 @@ export const AuthForm = () => {
               {isLogin ? "Register" : "Login"}
             </button>
           </p>
+          <div className="text-sm text-center text-gray-200">
+            {isLogin && (
+              <>
+                {isLogin ? "Forgot your password?" : ""}
+                <button
+                  onClick={handleResetPassword}
+                  className="ml-1 font-medium text-blue-200 hover:text-blue-300 focus:outline-none"
+                >
+                  Reset
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </>

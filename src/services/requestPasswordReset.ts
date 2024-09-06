@@ -1,7 +1,7 @@
-export async function registerAccount(email: string, password: string) {
-  console.log("registerAccount...");
+export async function requestPasswordReset(email: string) {
+  console.log("requestPasswordReset...");
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_AUTH_API_URL}/api/auth/create-account`,
+    `${process.env.NEXT_PUBLIC_AUTH_API_URL}/api/auth/request-password-reset`,
     {
       method: "POST",
       headers: {
@@ -9,7 +9,6 @@ export async function registerAccount(email: string, password: string) {
       },
       body: JSON.stringify({
         email: email,
-        password: password,
       }),
     }
   );

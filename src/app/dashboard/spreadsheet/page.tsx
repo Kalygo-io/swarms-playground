@@ -7,7 +7,7 @@ import { SpreadsheetSwarmProvider } from "@/context/spreadsheet-context";
 
 export default async function Page() {
   try {
-    // await protectedPageGuard();
+    await protectedPageGuard();
     return (
       <SpreadsheetSwarmProvider>
         <SpreadsheetContainer />

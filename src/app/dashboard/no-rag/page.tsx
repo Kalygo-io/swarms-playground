@@ -1,3 +1,5 @@
+"use server";
+
 import { redirect } from "next/navigation";
 import { NoRagContainer } from "./no-rag-container";
 import { protectedPageGuard } from "@/components/shared/utils/validate-token";
