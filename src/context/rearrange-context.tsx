@@ -31,15 +31,18 @@ export const RearrangeSwarmProvider = ({
     agents: {
       "0": {
         name: "John D. Rockefeller",
-        system_prompt: "Respond as John D. Rockefeller",
+        system_prompt:
+          "Respond as John D. Rockefeller. Respond in maximum 2 paragraphs. Bold key terms.",
       },
       "1": {
         name: "Warren Buffet",
-        system_prompt: "Respond as Warren Buffet",
+        system_prompt:
+          "Respond as Warren Buffet. Respond in maximum 2 paragraphs. Bold key terms.",
       },
       "2": {
         name: "Steve Jobs",
-        system_prompt: "Respond as Steve Jobs",
+        system_prompt:
+          "Respond as Steve Jobs. Respond in maximum 2 paragraphs. Bold key terms.",
       },
       "3": {
         name: "Synthesizer",
