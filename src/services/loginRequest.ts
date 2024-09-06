@@ -2,7 +2,7 @@ export async function loginRequest(email: string, password: string) {
   console.log("loginRequest...");
 
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_NODE_API_URL}/api/auth/log-in`,
+    `${process.env.NEXT_PUBLIC_AUTH_API_URL}/api/auth/log-in`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

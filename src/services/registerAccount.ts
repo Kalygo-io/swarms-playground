@@ -1,7 +1,7 @@
 export async function registerAccount(email: string, password: string) {
   console.log("registerAccount...");
   await fetch(
-    `${process.env.NEXT_PUBLIC_NODE_API_URL}/api/auth/create-account`,
+    `${process.env.NEXT_PUBLIC_AUTH_API_URL}/api/auth/create-account`,
     {
       method: "POST",
       headers: {
