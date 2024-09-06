@@ -1,4 +1,4 @@
-import { Action } from "@/app/dashboard/1-rearrange/chat-session-reducer";
+import { Action } from "@/app/dashboard/rearrange/chat-session-reducer";
 import { nanoid } from "@/shared/utils";
 import React from "react";
 
@@ -12,7 +12,7 @@ export async function callRearrangeSwarm(
   dispatch: React.Dispatch<Action>
 ) {
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_AI_API_URL}/rearrange-swarm/completion`,
+    `${process.env.NEXT_PUBLIC_AI_API_URL}/api/rearrange-swarm/completion`,
     {
       method: "POST",
       headers: {

@@ -8,7 +8,7 @@ import ReactMarkdown from "react-markdown";
 import { stringToColor } from "@/shared/uuidToColorCode";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
-import { SubBlock } from "@/components/2-spreadsheet/sub-block";
+import { SubBlock } from "@/components/rearrange/sub-block";
 
 interface P {
   index: number;

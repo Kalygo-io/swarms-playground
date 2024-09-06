@@ -1,4 +1,4 @@
-import { PromptForm } from "@/components/2-spreadsheet/prompt-form";
+import { PromptForm } from "@/components/spreadsheet/prompt-form";
 
 export interface ChatPanelProps {
   sessionId: string;

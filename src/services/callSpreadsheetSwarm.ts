@@ -1,4 +1,4 @@
-import { Action } from "@/app/dashboard/2-spreadsheet/chat-session-reducer";
+import { Action } from "@/app/dashboard/spreadsheet/chat-session-reducer";
 import { nanoid } from "@/shared/utils";
 import React from "react";
 
@@ -11,7 +11,7 @@ export async function callSpreadsheetSwarm(
   dispatch: React.Dispatch<Action>
 ) {
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_AI_API_URL}/spreadsheet-swarm/completion`,
+    `${process.env.NEXT_PUBLIC_AI_API_URL}/api/spreadsheet-swarm/completion`,
     {
       method: "POST",
       headers: {

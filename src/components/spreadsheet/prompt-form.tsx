@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { ChatDispatchContext } from "@/app/dashboard/2-spreadsheet/chat-session-context";
+import { ChatDispatchContext } from "@/app/dashboard/spreadsheet/chat-session-context";
 import { useEnterSubmit } from "@/shared/hooks/use-enter-submit";
 import { nanoid } from "@/shared/utils";
 import { callSpreadsheetSwarm } from "@/services/callSpreadsheetSwarm";

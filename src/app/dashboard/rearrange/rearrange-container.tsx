@@ -3,21 +3,21 @@
 import {
   ChatContext,
   ChatDispatchContext,
-} from "@/app/dashboard/2-spreadsheet/chat-session-context";
+} from "@/app/dashboard/rearrange/chat-session-context";
 import {
   chatReducer,
   initialState,
-} from "@/app/dashboard/2-spreadsheet/chat-session-reducer";
-import { Chat as SpreadsheetChat } from "@/components/2-spreadsheet/chat";
+} from "@/app/dashboard/rearrange/chat-session-reducer";
+import { Chat as RearrangeSwarmChat } from "@/components/rearrange/chat";
 import { useReducer } from "react";
 
-export function SpreadsheetContainer() {
+export function RearrangeContainer() {
   const [chat, dispatch] = useReducer(chatReducer, initialState);
 
   return (
     <ChatContext.Provider value={chat}>
       <ChatDispatchContext.Provider value={dispatch}>
-        <SpreadsheetChat />
+        <RearrangeSwarmChat />
       </ChatDispatchContext.Provider>
     </ChatContext.Provider>
   );

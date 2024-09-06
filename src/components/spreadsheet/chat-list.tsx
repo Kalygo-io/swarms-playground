@@ -1,4 +1,4 @@
-import { ChatBlock } from "@/components/2-spreadsheet/chat-block";
+import { ChatBlock } from "@/components/spreadsheet/chat-block";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
 

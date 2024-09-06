@@ -7,7 +7,7 @@ import { useRearrangeSwarmContext } from "@/context/rearrange-context";
 import { Separator } from "@/components/shared/separator";
 import { toast } from "react-toastify";
 import { errorReporter } from "@/shared/errorReporter";
-import { validateFlow } from "@/components/1-rearrange/helpers/validate-flow";
+import { validateFlow } from "@/components/rearrange/helpers/validate-flow";
 
 interface P {
   topNavHeight: number;

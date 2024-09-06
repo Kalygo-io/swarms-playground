@@ -1,4 +1,4 @@
-import { ChatBlock } from "@/components/1-rearrange/chat-block";
+import { ChatBlock } from "@/components/rearrange/chat-block";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
 

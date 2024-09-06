@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { RearrangeContainer } from "@/app/dashboard/1-rearrange/rearrange-container";
+import { RearrangeContainer } from "@/app/dashboard/rearrange/rearrange-container";
 import { protectedPageGuard } from "@/components/shared/utils/validate-token";
 import { RearrangeSwarmProvider } from "@/context/rearrange-context";
 

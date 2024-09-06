@@ -1,13 +1,13 @@
 "use client";
 
-import { ChatContext } from "@/app/dashboard/1-rearrange/chat-session-context";
-import { ChatList } from "@/components/1-rearrange/chat-list";
-import { ChatPanel } from "@/components/1-rearrange/chat-panel";
-import { EmptyScreen } from "@/components/1-rearrange/empty-screen";
+import { ChatContext } from "@/app/dashboard/rearrange/chat-session-context";
+import { ChatList } from "@/components/rearrange/chat-list";
+import { ChatPanel } from "@/components/rearrange/chat-panel";
+import { EmptyScreen } from "@/components/rearrange/empty-screen";
 import { useScrollAnchor } from "@/shared/hooks/use-scroll-anchor";
 import { cn } from "@/shared/utils";
 import { useContext, useEffect, useState } from "react";
-import CustomizeSwarmDrawer from "@/components/1-rearrange/customize-swarm-drawer";
+import CustomizeSwarmDrawer from "@/components/rearrange/customize-swarm-drawer";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import CustomizeSwarmDrawerNoDialog from "./customize-swarm-drawer-no-dialog";
 
@@ -86,7 +86,6 @@ export function Chat({ id, className }: ChatProps) {
         onClick={toggleDrawer}
       >
         <Cog6ToothIcon className="w-6 h-6 text-white cursor-pointer group-hover:text-gray-700" />
-        asdf
       </div>
 
       <CustomizeSwarmDrawer

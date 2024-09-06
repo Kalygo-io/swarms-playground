@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 export async function logoutRequest() {
-  console.log('logoutRequest...');
+  console.log("logoutRequest...");
 
-  await fetch(`${process.env.NEXT_PUBLIC_NODE_API_URL}/api/v1/auth/sign-out`, {
+  await fetch(`${process.env.NEXT_PUBLIC_NODE_API_URL}/api/auth/log-out`, {
     method: "DELETE",
     credentials: "include",
   });
