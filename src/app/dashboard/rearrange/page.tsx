@@ -7,7 +7,7 @@ import { RearrangeSwarmProvider } from "@/context/rearrange-context";
 
 export default async function Page() {
   try {
-    await protectedPageGuard();
+    // await protectedPageGuard();
     return (
       <RearrangeSwarmProvider>
         <RearrangeContainer />
