@@ -28,7 +28,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Layout({
+export function DashboardLayout({
   children, // will be a page or nested layout
 }: {
   children: React.ReactNode;

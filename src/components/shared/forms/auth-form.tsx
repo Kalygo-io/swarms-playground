@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 export const AuthForm = () => {
   const router = useRouter();
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
