@@ -124,7 +124,7 @@ export const AuthForm = () => {
               {isLogin ? "Register" : "Login"}
             </button>
           </p>
-          <div className="text-sm text-center text-gray-200">
+          <p className="text-sm text-center text-gray-200">
             {isLogin && (
               <>
                 {isLogin ? "Forgot your password?" : ""}
@@ -136,7 +136,7 @@ export const AuthForm = () => {
                 </button>
               </>
             )}
-          </div>
+          </p>
         </div>
       </div>
     </>
