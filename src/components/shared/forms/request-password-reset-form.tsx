@@ -5,6 +5,8 @@ import { CONFIG } from "@/config";
 import { useRouter } from "next/navigation";
 import { errorReporter } from "@/shared/errorReporter";
 import { requestPasswordReset } from "@/services/requestPasswordReset";
+import { toast } from "react-toastify";
+import { successToast } from "@/shared/toasts";
 
 export const RequestPasswordResetForm = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +17,7 @@ export const RequestPasswordResetForm = () => {
     try {
       e.preventDefault();
       await requestPasswordReset(email);
+      successToast("Password reset link sent to your email");
       router.push("/");
     } catch (err) {
       errorReporter(err);
