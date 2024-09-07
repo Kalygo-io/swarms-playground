@@ -9,7 +9,7 @@ export default async function Page() {
     await protectedPageGuard();
     return (
       <DashboardLayout>
-        <div className="text-white text-center">T.B.D.</div>
+        <div className="text-white text-center">Coming Soon...</div>
       </DashboardLayout>
     );
   } catch (error) {

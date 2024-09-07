@@ -12,7 +12,7 @@ export const navigation = [
     icon: FaDiceTwo,
   },
   {
-    name: "T.B.D.",
+    name: "Swarm Creator",
     href: "/dashboard/tbd",
     icon: FaDiceThree,
   },
