@@ -1,5 +1,5 @@
-import { Loader } from "@/components/shared/common/loader";
+import { WindowLoader } from "@/components/shared/common/window-loader";
 
 export default function Loading() {
-  return <Loader />;
+  return <WindowLoader />;
 }
