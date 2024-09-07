@@ -57,7 +57,7 @@ export const ResetPasswordForm = () => {
                 type="text"
                 id="reset-token"
                 name="reset-token"
-                autoComplete="off"
+                autoComplete="reset-token"
                 placeholder="Enter Reset Token"
                 value={resetToken}
                 onChange={(e) => setResetToken(e.target.value)}
@@ -76,7 +76,7 @@ export const ResetPasswordForm = () => {
                 type="password"
                 id="new-password"
                 name="new-password"
-                autoComplete="off"
+                autoComplete="new-password"
                 placeholder="Enter New Password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
