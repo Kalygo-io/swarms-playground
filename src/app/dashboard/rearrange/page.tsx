@@ -8,8 +8,6 @@ import { DashboardLayout } from "@/components/layouts/dashboard-layout";
 
 export default async function Page() {
   try {
-    console.log("rearrange Page.tsx");
-
     await protectedPageGuard();
     return (
       <RearrangeSwarmProvider>

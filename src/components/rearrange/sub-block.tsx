@@ -16,8 +16,6 @@ interface P {
 
 export const SubBlock = memo(
   function SubBlock(P: P) {
-    // console.log("->->- P.Block -<-<-", P.block);
-
     if (P.block.type === "ai" || P.block.type === "prompt") {
       const hexCode = stringToColor(
         P.block.agentName ?? "76b6788c-3c50-4678-b2bf-a7a0b4da89a9"

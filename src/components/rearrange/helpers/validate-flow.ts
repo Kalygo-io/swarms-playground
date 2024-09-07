@@ -40,8 +40,6 @@ export function validateFlow({ flow, agents }: ValidateFlowOptions): boolean {
   for (const task of tasks) {
     const agentNames = task.split(",").map((name) => name.trim());
 
-    console.log("agentNames", agentNames);
-
     // Loop over the agent names
     for (const agentName of agentNames) {
       if (!agentsAsList.includes(agentName) && agentName !== "H") {
