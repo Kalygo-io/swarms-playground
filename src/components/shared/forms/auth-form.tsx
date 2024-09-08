@@ -123,28 +123,30 @@ export const AuthForm = () => {
               {isLoading ? <Spinner /> : isLogin ? "Login" : "Register"}
             </button>
           </form>
-          <p className="text-sm text-center text-gray-200">
-            {isLogin ? "Don't have an account?" : "Already have an account?"}
-            <button
-              onClick={toggleForm}
-              className="ml-1 font-medium text-blue-200 hover:text-blue-300 focus:outline-none"
-            >
-              {isLogin ? "Register" : "Login"}
-            </button>
-          </p>
-          <p className="text-sm text-center text-gray-200">
-            {isLogin && (
-              <>
-                {isLogin ? "Forgot your password?" : ""}
-                <button
-                  onClick={handleResetPassword}
-                  className="ml-1 font-medium text-blue-200 hover:text-blue-300 focus:outline-none"
-                >
-                  Reset
-                </button>
-              </>
-            )}
-          </p>
+          <div className="space-y-2 py-2">
+            <p className="text-sm text-center text-gray-200">
+              {isLogin ? "Don't have an account?" : "Already have an account?"}
+              <button
+                onClick={toggleForm}
+                className="ml-1 font-medium text-blue-200 hover:text-blue-300 focus:outline-none"
+              >
+                {isLogin ? "Register" : "Login"}
+              </button>
+            </p>
+            <p className="text-sm text-center text-gray-200">
+              {isLogin && (
+                <>
+                  {isLogin ? "Forgot your password?" : ""}
+                  <button
+                    onClick={handleResetPassword}
+                    className="ml-1 font-medium text-blue-200 hover:text-blue-300 focus:outline-none"
+                  >
+                    Reset
+                  </button>
+                </>
+              )}
+            </p>
+          </div>
         </div>
       </div>
     </>
