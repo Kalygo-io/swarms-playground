@@ -1,6 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
+import { DownloadLinkButton } from "@/ts/types/DownloadLinkButton";
 
 export type Action =
   | {
@@ -10,6 +11,13 @@ export type Action =
   | {
       type: "ADD_PARALLEL_GROUP_BLOCK";
       payload: ParallelGroupBlock;
+    }
+  | {
+      type: "ADD_DOWNLOAD_LINK_BUTTON_BLOCK";
+      payload: {
+        id: string;
+        link: string;
+      };
     }
   | {
       type: "SET_COMPLETION_LOADING";
@@ -120,6 +128,21 @@ export function chatReducer(
       }
     }
 
+    case "ADD_DOWNLOAD_LINK_BUTTON_BLOCK": {
+      return {
+        ...state,
+        blocks: [
+          ...state.blocks,
+          {
+            id: action.payload.id,
+            link: action.payload.link,
+            type: "download-link",
+            error: null,
+          } as DownloadLinkButton,
+        ],
+      };
+    }
+
     case "EDIT_PARALLEL_GROUP_BLOCK": {
       const index = state.blocks.findIndex(
         (b) =>
@@ -190,7 +213,7 @@ export function chatReducer(
 }
 
 export const initialState: {
-  blocks: (Block | ParallelGroupBlock)[];
+  blocks: (Block | ParallelGroupBlock | DownloadLinkButton)[];
   completionLoading: boolean;
   sessionId: string;
 } = {

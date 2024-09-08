@@ -46,6 +46,14 @@ export const SpreadsheetSwarmProvider = ({
         system_prompt:
           "You are a Facebook social media agent. Your task is to create a post that maximizes engagement on Facebook. Use rich media, personal stories, and interactive content. Ensure the post is compelling and includes a call-to-action.",
       },
+      // "0": {
+      //   name: "Concise Agent A",
+      //   system_prompt: "Respond with a concise message. No more than 3 words.",
+      // },
+      // "1": {
+      //   name: "Concise Agent B",
+      //   system_prompt: "Respond with a concise message. No more than 3 words.",
+      // },
     },
   });
 

@@ -9,10 +9,12 @@ import { stringToColor } from "@/shared/uuidToColorCode";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
 import { SubBlock } from "@/components/spreadsheet/sub-block";
+import { DownloadLinkButton } from "@/ts/types/DownloadLinkButton";
+import { TableCellsIcon } from "@heroicons/react/16/solid";
 
 interface P {
   index: number;
-  block: Block | ParallelGroupBlock;
+  block: Block | ParallelGroupBlock | DownloadLinkButton;
 }
 
 export const ChatBlock = memo(
@@ -74,8 +76,6 @@ export const ChatBlock = memo(
         </div>
       );
     } else if (P.block.type === "group") {
-      const hexCode = stringToColor(P.block.parallelGroupId);
-
       return (
         <div key={P.block.id}>
           <div className="group relative mb-4 items-start bg-gray-900 p-4 rounded-md flex text-gray-200">
@@ -93,9 +93,28 @@ export const ChatBlock = memo(
           <Separator className="my-4 bg-gray-900" />
         </div>
       );
+    } else if (P.block.type === "download-link") {
+      return (
+        <div key={P.block.id}>
+          <div className="group relative mb-4 items-start justify-center bg-gray-900 p-4 rounded-md flex text-gray-200">
+            <button
+              type="button"
+              className="inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+              onClick={() => window.open(P.block.link, "_blank")}
+            >
+              Download Spreadsheet
+              <TableCellsIcon aria-hidden="true" className="-mr-0.5 h-5 w-5" />
+            </button>
+          </div>
+          <Separator className="my-4 bg-gray-900" />
+        </div>
+      );
     } else {
-      // debugger;
-      return <div key={P.block.id}>UNSUPPORTED MESSAGE</div>;
+      return (
+        <div className="text-white" key={P.block.id}>
+          UNSUPPORTED MESSAGE
+        </div>
+      );
     }
   },
   (prevProps, nextProps) => {

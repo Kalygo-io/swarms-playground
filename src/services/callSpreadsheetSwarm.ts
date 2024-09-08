@@ -1,5 +1,6 @@
 import { Action } from "@/app/dashboard/spreadsheet/chat-session-reducer";
 import { nanoid } from "@/shared/utils";
+import { v4 as uuid } from "uuid";
 import React from "react";
 
 export async function callSpreadsheetSwarm(
@@ -26,7 +27,14 @@ export async function callSpreadsheetSwarm(
     }
   );
 
-  if (!resp.ok) throw "Network response was not OK";
+  if (!resp.ok) {
+    if (resp.status === 401) {
+      // Unauthorized
+      window.location.href = "/";
+    }
+
+    throw "Network response was not OK";
+  }
 
   const reader = resp?.body?.getReader();
 
@@ -105,8 +113,6 @@ function dispatchEventToState(
   ) {
     accMessage.content += parsedChunk["data"];
 
-    // debugger;
-
     dispatch({
       type: "EDIT_PARALLEL_GROUP_BLOCK",
       payload: {
@@ -145,6 +151,14 @@ function dispatchEventToState(
   } else if (parsedChunk["event"] === "on_chat_model_end") {
     console.log("LLM END");
     accMessage.content = "";
+  } else if (parsedChunk["event"] === "add_download_link_button") {
+    dispatch({
+      type: "ADD_DOWNLOAD_LINK_BUTTON_BLOCK",
+      payload: {
+        id: uuid(),
+        link: parsedChunk["link"],
+      },
+    });
   } else {
     console.error("Unknown event:", parsedChunk["event"]);
   }

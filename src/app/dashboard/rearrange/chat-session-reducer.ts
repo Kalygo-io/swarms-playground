@@ -1,6 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
+import { DownloadLinkButton } from "@/ts/types/DownloadLinkButton";
 
 export type Action =
   | {
