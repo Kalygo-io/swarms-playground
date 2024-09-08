@@ -9,10 +9,11 @@ import { stringToColor } from "@/shared/uuidToColorCode";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
 import { SubBlock } from "@/components/rearrange/sub-block";
+import { BlocksUnion } from "@/ts/types/BlocksUnion";
 
 interface P {
   index: number;
-  block: Block | ParallelGroupBlock;
+  block: BlocksUnion;
 }
 
 export const ChatBlock = memo(
@@ -74,7 +75,9 @@ export const ChatBlock = memo(
         </div>
       );
     } else if (P.block.type === "group") {
-      const hexCode = stringToColor(P.block.parallelGroupId);
+      const hexCode = stringToColor(
+        (P.block as ParallelGroupBlock).parallelGroupId
+      );
 
       return (
         <div key={P.block.id}>
@@ -82,7 +85,7 @@ export const ChatBlock = memo(
             <div className="px-1 space-y-2 overflow-hidden ml-4">
               <b className="text-lg">PARALLEL</b>
               <div className="flex flex-col space-y-2 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-2 mx-auto">
-                {P.block.blocks?.map((block, index) => {
+                {(P.block as ParallelGroupBlock).blocks?.map((block, index) => {
                   return (
                     <SubBlock key={block.id} index={index} block={block} />
                   );
@@ -94,7 +97,6 @@ export const ChatBlock = memo(
         </div>
       );
     } else {
-      // debugger;
       return <div key={P.block.id}>UNSUPPORTED MESSAGE</div>;
     }
   },

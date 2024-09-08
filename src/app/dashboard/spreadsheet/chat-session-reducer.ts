@@ -1,7 +1,8 @@
 import { v4 as uuid } from "uuid";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
-import { DownloadLinkButton } from "@/ts/types/DownloadLinkButton";
+import { DownloadLinkButtonBlock } from "@/ts/types/DownloadLinkButtonBlock";
+import { BlocksUnion } from "@/ts/types/BlocksUnion";
 
 export type Action =
   | {
@@ -14,10 +15,7 @@ export type Action =
     }
   | {
       type: "ADD_DOWNLOAD_LINK_BUTTON_BLOCK";
-      payload: {
-        id: string;
-        link: string;
-      };
+      payload: DownloadLinkButtonBlock;
     }
   | {
       type: "SET_COMPLETION_LOADING";
@@ -45,7 +43,7 @@ export type Action =
 
 export function chatReducer(
   state: {
-    blocks: (Block | ParallelGroupBlock)[];
+    blocks: BlocksUnion[];
     completionLoading: boolean;
     sessionId: string;
   },
@@ -53,7 +51,6 @@ export function chatReducer(
 ) {
   switch (action.type) {
     case "ADD_DEFAULT_BLOCK": {
-      console.log("ADD_DEFAULT_BLOCK");
       return {
         ...state,
         blocks: [
@@ -73,7 +70,8 @@ export function chatReducer(
       const index = state.blocks.findIndex(
         (b) =>
           b.type === "group" &&
-          b.parallelGroupId === action.payload.parallelGroupId
+          (b as ParallelGroupBlock).parallelGroupId ===
+            action.payload.parallelGroupId
       );
 
       if (index === -1) {
@@ -109,7 +107,6 @@ export function chatReducer(
             {
               ...state.blocks[index],
               blocks: [
-                // ...(state.blocks[index] as ParallelGroupBlock)?.blocks.slice(0, groupMemberIndex) || [],
                 ...(state.blocks[index] as ParallelGroupBlock)?.blocks.slice(
                   groupMemberIndex + 1
                 ),
@@ -136,9 +133,9 @@ export function chatReducer(
           {
             id: action.payload.id,
             link: action.payload.link,
-            type: "download-link",
-            error: null,
-          } as DownloadLinkButton,
+            type: action.payload.type,
+            error: action.payload.error,
+          } as DownloadLinkButtonBlock,
         ],
       };
     }
@@ -147,7 +144,8 @@ export function chatReducer(
       const index = state.blocks.findIndex(
         (b) =>
           b.type === "group" &&
-          b.parallelGroupId === action.payload.parallelGroupId
+          (b as ParallelGroupBlock).parallelGroupId ===
+            action.payload.parallelGroupId
       );
       const groupMemberIndex = (
         state.blocks[index] as ParallelGroupBlock
@@ -191,15 +189,13 @@ export function chatReducer(
           {
             ...state.blocks[index],
             ...action.payload,
-          },
+          } as Block,
           ...state.blocks.slice(index + 1),
         ],
       };
     }
 
     case "SET_COMPLETION_LOADING": {
-      console.log("SET_COMPLETION_LOADING");
-
       return {
         ...state,
         completionLoading: action.payload,
@@ -213,11 +209,11 @@ export function chatReducer(
 }
 
 export const initialState: {
-  blocks: (Block | ParallelGroupBlock | DownloadLinkButton)[];
+  blocks: BlocksUnion[];
   completionLoading: boolean;
   sessionId: string;
 } = {
-  blocks: [],
+  blocks: [] as BlocksUnion[],
   completionLoading: false,
   sessionId: uuid(),
 };

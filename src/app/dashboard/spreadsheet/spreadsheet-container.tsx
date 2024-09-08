@@ -5,14 +5,29 @@ import {
   ChatDispatchContext,
 } from "@/app/dashboard/spreadsheet/chat-session-context";
 import {
+  Action,
   chatReducer,
   initialState,
 } from "@/app/dashboard/spreadsheet/chat-session-reducer";
 import { Chat as SpreadsheetChat } from "@/components/spreadsheet/chat";
+import { BlocksUnion } from "@/ts/types/BlocksUnion";
 import { useReducer } from "react";
 
 export function SpreadsheetContainer() {
-  const [chat, dispatch] = useReducer(chatReducer, initialState);
+  const [chat, dispatch] = useReducer<
+    (
+      state: {
+        blocks: BlocksUnion[];
+        completionLoading: boolean;
+        sessionId: string;
+      },
+      action: Action
+    ) => {
+      blocks: BlocksUnion[];
+      completionLoading: boolean;
+      sessionId: string;
+    }
+  >(chatReducer, initialState);
 
   return (
     <ChatContext.Provider value={chat}>

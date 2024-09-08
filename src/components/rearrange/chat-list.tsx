@@ -1,10 +1,11 @@
 import { ChatBlock } from "@/components/rearrange/chat-block";
 import { Block } from "@/ts/types/Block";
+import { BlocksUnion } from "@/ts/types/BlocksUnion";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
 
 export interface P {
   isCompletionLoading: boolean;
-  blocks: (Block | ParallelGroupBlock)[];
+  blocks: BlocksUnion[];
 }
 
 export function ChatList(P: P) {
@@ -17,7 +18,7 @@ export function ChatList(P: P) {
     // <div className="relative mx-auto px-4 lg:pr-8">
     // <div className="mx-auto lg:pl-72 lg:pr-96">
     <div>
-      {P.blocks.map((block: Block | ParallelGroupBlock, index: number) => {
+      {P.blocks.map((block: BlocksUnion, index: number) => {
         return <ChatBlock key={block.id} index={index} block={block} />;
       })}
 

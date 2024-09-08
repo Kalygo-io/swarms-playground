@@ -9,12 +9,13 @@ import { stringToColor } from "@/shared/uuidToColorCode";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
 import { SubBlock } from "@/components/spreadsheet/sub-block";
-import { DownloadLinkButton } from "@/ts/types/DownloadLinkButton";
+import { DownloadLinkButtonBlock } from "@/ts/types/DownloadLinkButtonBlock";
 import { TableCellsIcon } from "@heroicons/react/16/solid";
+import { BlocksUnion } from "@/ts/types/BlocksUnion";
 
 interface P {
   index: number;
-  block: Block | ParallelGroupBlock | DownloadLinkButton;
+  block: BlocksUnion;
 }
 
 export const ChatBlock = memo(
@@ -82,7 +83,7 @@ export const ChatBlock = memo(
             <div className="px-1 space-y-2 overflow-hidden ml-4">
               <b className="text-lg">PARALLEL</b>
               <div className="flex flex-col space-y-2 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-2 mx-auto">
-                {P.block.blocks?.map((block, index) => {
+                {(P.block as ParallelGroupBlock).blocks?.map((block, index) => {
                   return (
                     <SubBlock key={block.id} index={index} block={block} />
                   );
@@ -100,7 +101,9 @@ export const ChatBlock = memo(
             <button
               type="button"
               className="inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-              onClick={() => window.open(P.block.link, "_blank")}
+              onClick={() =>
+                window.open((P.block as DownloadLinkButtonBlock).link, "_blank")
+              }
             >
               Download Spreadsheet
               <TableCellsIcon aria-hidden="true" className="-mr-0.5 h-5 w-5" />

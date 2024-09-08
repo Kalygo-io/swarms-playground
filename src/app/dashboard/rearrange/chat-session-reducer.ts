@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
-import { DownloadLinkButton } from "@/ts/types/DownloadLinkButton";
+import { BlocksUnion } from "@/ts/types/BlocksUnion";
 
 export type Action =
   | {
@@ -38,7 +38,7 @@ export type Action =
 
 export function chatReducer(
   state: {
-    blocks: (Block | ParallelGroupBlock)[];
+    blocks: BlocksUnion[];
     completionLoading: boolean;
     sessionId: string;
   },
@@ -66,7 +66,8 @@ export function chatReducer(
       const index = state.blocks.findIndex(
         (b) =>
           b.type === "group" &&
-          b.parallelGroupId === action.payload.parallelGroupId
+          (b as ParallelGroupBlock).parallelGroupId ===
+            action.payload.parallelGroupId
       );
 
       // debugger
@@ -127,7 +128,8 @@ export function chatReducer(
       const index = state.blocks.findIndex(
         (b) =>
           b.type === "group" &&
-          b.parallelGroupId === action.payload.parallelGroupId
+          (b as ParallelGroupBlock).parallelGroupId ===
+            action.payload.parallelGroupId
       );
       const groupMemberIndex = (
         state.blocks[index] as ParallelGroupBlock
@@ -171,7 +173,7 @@ export function chatReducer(
           {
             ...state.blocks[index],
             ...action.payload,
-          },
+          } as Block,
           ...state.blocks.slice(index + 1),
         ],
       };
@@ -193,7 +195,7 @@ export function chatReducer(
 }
 
 export const initialState: {
-  blocks: (Block | ParallelGroupBlock)[];
+  blocks: BlocksUnion[];
   completionLoading: boolean;
   sessionId: string;
 } = {

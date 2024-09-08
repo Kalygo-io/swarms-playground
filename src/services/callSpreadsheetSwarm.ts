@@ -157,6 +157,8 @@ function dispatchEventToState(
       payload: {
         id: uuid(),
         link: parsedChunk["link"],
+        type: "download-link",
+        error: null,
       },
     });
   } else {
