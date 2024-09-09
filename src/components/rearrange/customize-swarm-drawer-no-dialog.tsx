@@ -100,7 +100,7 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
               </div>
               <div className="mt-1">
                 <p className="text-sm text-blue-300">
-                  Customize your Rearrange Swarm using the form below
+                  Customize your Swarm using the form below
                 </p>
               </div>
             </div>

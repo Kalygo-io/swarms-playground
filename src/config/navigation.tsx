@@ -2,12 +2,12 @@ import { FaDiceOne, FaDiceTwo, FaDiceThree, FaDiceFour } from "react-icons/fa";
 
 export const navigation = [
   {
-    name: "Rearrange Swarm",
+    name: "Rearrange Tool",
     href: "/dashboard/rearrange",
     icon: FaDiceOne,
   },
   {
-    name: "Spreadsheet Swarm",
+    name: "Spreadsheet Tool",
     href: "/dashboard/spreadsheet",
     icon: FaDiceTwo,
   },
