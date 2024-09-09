@@ -25,10 +25,10 @@ export const SwarmDesignerProvider = ({
   children: React.ReactNode;
 }) => {
   const [data, setData] = useState<{
-    agents: Record<string, { name: string; system_prompt: string }>;
+    agents: { name: string; system_prompt: string }[];
     flow: string;
   }>({
-    agents: {},
+    agents: [],
     flow: "",
   });
 

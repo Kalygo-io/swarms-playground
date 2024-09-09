@@ -8,41 +8,45 @@ import { toast } from "react-toastify";
 import { errorReporter } from "@/shared/errorReporter";
 import { validateFlow } from "@/components/swarm-designer/helpers/validate-flow";
 import { callSwarmDesigner } from "@/services/callSwarmDesigner";
+import { Spinner } from "@/components/shared/common/spinner";
 
 interface P {
   topNavHeight: number;
 }
 
 export default function CustomizeSwarmDrawerNoDialog(P: P) {
-  const [agentCount, setAgentCount] = useState(0);
-
+  const [callSwarmDesignerLoading, setCallSwarmDesignerLoading] =
+    useState(false);
   const [swarmDesignerPrompt, setSwarmDesignerPrompt] = useState("");
 
   const { context, setSwarmDesignerContext } = useSwarmDesignerContext();
 
   const [localData, setLocalData] = useState({
-    agents: context.agents || {},
+    agents: context.agents || [],
     flow: context.flow || "",
   });
 
   const handleAddAgent = () => {
-    if (agentCount < 10) {
-      setAgentCount(agentCount + 1);
+    if (context.agents.length < 10) {
+      setLocalData((prevData) => ({
+        ...prevData,
+        agents: [
+          ...prevData.agents,
+          {
+            name: "",
+            system_prompt: "",
+          },
+        ],
+      }));
     }
   };
 
   const handleRemoveAgent = () => {
-    if (agentCount > 0) {
-      delete localData.agents[agentCount - 1];
-
+    if (context.agents.length > 0) {
       setLocalData((prevData) => ({
         ...prevData,
-        agents: {
-          ...localData.agents,
-        },
+        agents: prevData.agents.slice(0, -1),
       }));
-
-      setAgentCount(agentCount - 1);
     }
   };
 
@@ -51,15 +55,21 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
 
     if (name.startsWith("agents.")) {
       const [_, agentKey, agentProperty] = name.split(".");
+
+      // console.log("-__-");
+      // console.log(_, agentKey, agentProperty);
+      // console.log("-__-");
+
       setLocalData((prevData) => ({
         ...prevData,
-        agents: {
-          ...prevData.agents,
-          [agentKey]: {
+        agents: [
+          ...prevData.agents.slice(0, Number.parseInt(agentKey)),
+          {
             ...prevData.agents[agentKey],
             [agentProperty]: value,
           },
-        },
+          ...prevData.agents.slice(Number.parseInt(agentKey) + 1), // Fix off by one bug
+        ],
       }));
     } else {
       setLocalData((prevData) => ({
@@ -78,6 +88,8 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
         flow: localData.flow,
       });
 
+      console.log("localData", localData);
+
       setSwarmDesignerContext(localData);
       toast.success("Swarm customized successfully");
     } catch (error) {
@@ -90,10 +102,26 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
   ) => {
     try {
       e.preventDefault();
-      toast.success("Designing swarm...");
 
-      await callSwarmDesigner(swarmDesignerPrompt);
+      setCallSwarmDesignerLoading(true);
+      const resp = await callSwarmDesigner(swarmDesignerPrompt);
+      setCallSwarmDesignerLoading(false);
+
+      const json = await resp.json();
+      const { swarmConfig } = json;
+
+      console.log("swarmConfig", swarmConfig);
+
+      setLocalData({
+        agents: swarmConfig.agents,
+        flow: swarmConfig.flow,
+      });
+      setSwarmDesignerContext({
+        agents: swarmConfig.agents,
+        flow: swarmConfig.flow,
+      });
     } catch (error) {
+      setCallSwarmDesignerLoading(false);
       errorReporter(error, true);
     }
   };
@@ -106,7 +134,7 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
             <div className="bg-black px-4 py-6 sm:px-6">
               <form
                 onSubmit={handleSwarmDesignerPromptSubmit}
-                className="space-y-1"
+                className="space-y-2"
               >
                 <h2 className="text-base font-semibold leading-7 text-white">
                   Design Swarm
@@ -121,12 +149,14 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
                     <div className="mt-2">
                       <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md">
                         <textarea
+                          rows={5}
                           value={swarmDesignerPrompt}
                           onChange={(e) =>
                             setSwarmDesignerPrompt(e.target.value)
                           }
                           id="swarm-designer-prompt"
                           name="swarm-designer-prompt"
+                          required={true}
                           placeholder="What goal are you trying to achieve?"
                           className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                         />
@@ -140,7 +170,11 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                   >
-                    Run Swarm Designer
+                    {callSwarmDesignerLoading ? (
+                      <Spinner />
+                    ) : (
+                      "Run Swarm Builder"
+                    )}
                   </button>
                 </div>
               </form>
@@ -158,37 +192,47 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
                           Agents
                         </label>
                         <div className="mt-2">
-                          {[...Array(agentCount)].map((_, index) => (
-                            <div key={index}>
-                              <fieldset className="border border-gray-400 p-2 rounded-md">
-                                <legend className="text-gray-400 text-sm px-1">
-                                  Agent {index + 1}
-                                </legend>
-                                {/* Rest of the code */}
+                          {localData.agents?.map(
+                            (
+                              _: {
+                                agent_name: string;
+                                system_prompt: string;
+                              },
+                              index: number
+                            ) => (
+                              <div key={index}>
+                                <fieldset className="border border-gray-400 p-2 rounded-md">
+                                  <legend className="text-gray-400 text-sm px-1">
+                                    Agent {index + 1}
+                                  </legend>
+                                  {/* Rest of the code */}
 
-                                <input
-                                  id={`agents.${index}.name`}
-                                  name={`agents.${index}.name`}
-                                  value={localData?.agents?.[index]?.name || ""}
-                                  onChange={handleChange}
-                                  placeholder={`Agent name`}
-                                  className="bg-gray-800 block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 mt-2"
-                                />
-                                <textarea
-                                  id={`agents.${index}.system_prompt`}
-                                  name={`agents.${index}.system_prompt`}
-                                  value={
-                                    localData?.agents?.[index]?.system_prompt ||
-                                    ""
-                                  }
-                                  onChange={handleChange}
-                                  placeholder={`System prompt`}
-                                  className="bg-gray-800 block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 mt-2 h-14"
-                                />
-                              </fieldset>
-                              <Separator className="my-4 bg-gray-700" />
-                            </div>
-                          ))}
+                                  <input
+                                    id={`agents.${index}.name`}
+                                    name={`agents.${index}.name`}
+                                    value={
+                                      localData?.agents?.[index]?.name || ""
+                                    }
+                                    onChange={handleChange}
+                                    placeholder={`Agent name`}
+                                    className="bg-gray-800 block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 mt-2"
+                                  />
+                                  <textarea
+                                    id={`agents.${index}.system_prompt`}
+                                    name={`agents.${index}.system_prompt`}
+                                    value={
+                                      localData?.agents?.[index]
+                                        ?.system_prompt || ""
+                                    }
+                                    onChange={handleChange}
+                                    placeholder={`System prompt`}
+                                    className="bg-gray-800 block w-full rounded-md border-0 py-1.5 text-gray-200 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 mt-2 h-14"
+                                  />
+                                </fieldset>
+                                <Separator className="my-4 bg-gray-700" />
+                              </div>
+                            )
+                          )}
                         </div>
                         <div className="flex justify-end mt-2">
                           {/* Add Agent button */}

@@ -69,9 +69,7 @@ export function chatReducer(
             action.payload.parallelGroupId
       );
 
-      // debugger
       if (index === -1) {
-        // debugger
         return {
           ...state,
           blocks: [

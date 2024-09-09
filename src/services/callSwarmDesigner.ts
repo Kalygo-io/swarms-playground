@@ -10,10 +10,14 @@ export async function callSwarmDesigner(prompt: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({}),
+      body: JSON.stringify({
+        prompt: prompt,
+      }),
       credentials: "include",
     }
   );
 
   if (!resp.ok) throw "Network response was not OK";
+
+  return resp;
 }

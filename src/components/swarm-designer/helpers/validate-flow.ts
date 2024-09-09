@@ -20,11 +20,11 @@ export function validateFlow({ flow, agents }: ValidateFlowOptions): boolean {
    *   bool: True if the flow pattern is valid.
    */
 
-  if (!flow.includes("->")) {
-    throw new Error(
-      "Flow must include '->' to denote the direction of the task."
-    );
-  }
+  // if (!flow.includes("->")) {
+  //   throw new Error(
+  //     "Flow must include '->' to denote the direction of the task."
+  //   );
+  // }
 
   const agentsInFlow: string[] = [];
 
