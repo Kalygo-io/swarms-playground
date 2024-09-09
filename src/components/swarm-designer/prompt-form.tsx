@@ -8,6 +8,7 @@ import { nanoid } from "@/shared/utils";
 import { callSwarmDesigner } from "@/services/callSwarmDesigner";
 import { useRouter } from "next/navigation";
 import { useSwarmDesignerContext } from "@/context/swarm-designer-context";
+import { callDesignedSwarm } from "@/services/callDesignedSwarm";
 
 export function PromptForm({
   input,
@@ -52,7 +53,7 @@ export function PromptForm({
             payload: true,
           });
 
-          await callSwarmDesigner(sessionId, prompt, context, dispatch);
+          await callDesignedSwarm(sessionId, prompt, context, dispatch);
 
           dispatch({
             type: "SET_COMPLETION_LOADING",

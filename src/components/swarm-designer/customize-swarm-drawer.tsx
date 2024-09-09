@@ -16,7 +16,7 @@ interface P {
 }
 
 export default function CustomizeSwarmDrawer(P: P) {
-  const [agentCount, setAgentCount] = useState(4);
+  const [agentCount, setAgentCount] = useState(0);
   const { context, setSwarmDesignerContext } = useSwarmDesignerContext();
 
   const [localData, setLocalData] = useState({
@@ -31,7 +31,7 @@ export default function CustomizeSwarmDrawer(P: P) {
   };
 
   const handleRemoveAgent = () => {
-    if (agentCount > 1) {
+    if (agentCount > 0) {
       delete localData.agents[agentCount - 1];
 
       setLocalData((prevData) => ({
@@ -108,7 +108,7 @@ export default function CustomizeSwarmDrawer(P: P) {
                   <div className="bg-black px-4 py-6 sm:px-6">
                     <div className="flex items-center justify-between">
                       <DialogTitle className="text-base font-semibold leading-6 text-white">
-                        Customize
+                        Design (Drawer)
                       </DialogTitle>
                       <div className="ml-3 flex h-7 items-center">
                         <button

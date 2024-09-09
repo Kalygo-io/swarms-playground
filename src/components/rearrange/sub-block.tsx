@@ -63,7 +63,6 @@ export const SubBlock = memo(
         </div>
       );
     } else {
-      // debugger;
       return <div key={P.block.id}>UNSUPPORTED MESSAGE</div>;
     }
   },

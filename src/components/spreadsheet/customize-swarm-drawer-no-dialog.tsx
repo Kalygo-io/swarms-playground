@@ -70,7 +70,6 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
       toast.success("Swarm customized successfully");
     } catch (error) {
       errorReporter(error, true);
-      // toast.error("Failed to customize swarm");
     }
   };
 
