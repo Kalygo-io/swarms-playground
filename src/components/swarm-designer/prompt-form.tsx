@@ -2,13 +2,18 @@
 
 import * as React from "react";
 
-import { ChatDispatchContext } from "@/app/dashboard/swarm-designer/chat-session-context";
+import {
+  ChatDispatchContext,
+  ChatContext,
+  useSwarmDesignerChatContext,
+} from "@/app/dashboard/swarm-designer/chat-session-context";
 import { useEnterSubmit } from "@/shared/hooks/use-enter-submit";
 import { nanoid } from "@/shared/utils";
 import { callSwarmDesigner } from "@/services/callSwarmDesigner";
 import { useRouter } from "next/navigation";
 import { useSwarmDesignerContext } from "@/context/swarm-designer-context";
 import { callDesignedSwarm } from "@/services/callDesignedSwarm";
+import { StopCircleIcon, StopIcon } from "@heroicons/react/24/outline";
 
 export function PromptForm({
   input,
@@ -22,9 +27,15 @@ export function PromptForm({
   const router = useRouter();
   const { formRef, onKeyDown } = useEnterSubmit();
   const { context } = useSwarmDesignerContext();
+  const chatContext = useSwarmDesignerChatContext();
+
   const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
   const dispatch = React.useContext(ChatDispatchContext);
+
+  const abortControllerRef = React.useRef<AbortController | null>(null);
+  // const abortController = new AbortController();
+  // const signal = abortController.signal;
 
   return (
     <form
@@ -53,7 +64,12 @@ export function PromptForm({
             payload: true,
           });
 
-          await callDesignedSwarm(sessionId, prompt, context, dispatch);
+          // Initialize a new AbortController for each request
+          abortControllerRef.current = new AbortController();
+          const signal = abortControllerRef.current.signal;
+
+          // Make the API call with the abort signal
+          await callDesignedSwarm(sessionId, prompt, context, dispatch, signal);
 
           dispatch({
             type: "SET_COMPLETION_LOADING",
@@ -76,11 +92,22 @@ export function PromptForm({
       }}
     >
       <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-background">
+        {chatContext.completionLoading && (
+          <button
+            onClick={() => {
+              console.log("ABORT...");
+              abortControllerRef.current?.abort();
+            }}
+            className="absolute top-2 right-2 p-2 rounded-full bg-red-500 text-white"
+          >
+            <StopIcon className="h-6 w-6" />
+          </button>
+        )}
         <textarea
           ref={inputRef}
           tabIndex={0}
           onKeyDown={onKeyDown}
-          placeholder="Send a message."
+          placeholder="Send a prompt."
           className="block w-full rounded-md border-0 py-1.5 text-gray-200 bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
           autoFocus
           spellCheck={false}

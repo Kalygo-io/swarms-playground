@@ -9,6 +9,7 @@ import { stringToColor } from "@/shared/uuidToColorCode";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
 import { BlocksUnion } from "@/ts/types/BlocksUnion";
+import { ChatMessageActions } from "../swarm-designer/chat-message-actions";
 
 interface P {
   index: number;
@@ -58,6 +59,7 @@ export const SubBlock = memo(
               >
                 {P.block.content}
               </ReactMarkdown>
+              <ChatMessageActions message={P.block as Block} />
             </div>
           </div>
         </div>

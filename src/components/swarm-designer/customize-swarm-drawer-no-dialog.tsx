@@ -103,6 +103,7 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
       e.preventDefault();
 
       setCallSwarmDesignerLoading(true);
+
       const resp = await callSwarmDesigner(swarmDesignerPrompt);
       setCallSwarmDesignerLoading(false);
 
@@ -135,9 +136,8 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
               >
                 <div className="font-semibold text-white">Design Swarm</div>
                 <p className="text-sm leading-6 text-blue-300">
-                  Provide a prompt of what you're aiming to accomplish and we
-                  will generate a group of agents designed to efficiently
-                  achieve your goal.
+                  What are you aiming to accomplish? We'll generate a group of
+                  agents designed to efficiently achieve your goal.
                 </p>
                 <div>
                   <div className="w-full">
@@ -152,7 +152,7 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
                           id="swarm-designer-prompt"
                           name="swarm-designer-prompt"
                           required={true}
-                          placeholder="What goal are you trying to achieve?"
+                          placeholder="Describe your swarm..."
                           className="block w-full rounded-t-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                         />
                       </div>
@@ -259,6 +259,7 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
                       </label>
                       <div className="mt-2">
                         <textarea
+                          rows={5}
                           id="flow"
                           name="flow"
                           value={localData?.flow}

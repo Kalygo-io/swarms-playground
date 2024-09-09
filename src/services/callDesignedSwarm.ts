@@ -9,7 +9,8 @@ export async function callDesignedSwarm(
     agents: Record<string, { name: string; system_prompt: string }>;
     flow: string;
   },
-  dispatch: React.Dispatch<Action>
+  dispatch: React.Dispatch<Action>,
+  signal: AbortSignal
 ) {
   const resp = await fetch(
     `${process.env.NEXT_PUBLIC_AI_API_URL}/api/swarm-designer/completion`,
@@ -25,6 +26,7 @@ export async function callDesignedSwarm(
         flow: context.flow,
       }),
       credentials: "include",
+      signal: signal, // Pass the signal to the fetch request
     }
   );
 
