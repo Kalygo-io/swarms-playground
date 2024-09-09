@@ -12,8 +12,8 @@ export const navigation = [
     icon: FaDiceTwo,
   },
   {
-    name: "Swarm Creator",
-    href: "/dashboard/tbd",
+    name: "Swarm Designer",
+    href: "/dashboard/swarm-designer",
     icon: FaDiceThree,
   },
 ];
