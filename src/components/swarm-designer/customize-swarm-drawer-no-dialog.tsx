@@ -142,7 +142,7 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
                 <div>
                   <div className="w-full">
                     <div className="mt-2">
-                      <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md">
+                      <div className="flex rounded-md shadow-sm ring-gray-300 sm:max-w-md">
                         <textarea
                           rows={5}
                           value={swarmDesignerPrompt}
@@ -153,7 +153,7 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
                           name="swarm-designer-prompt"
                           required={true}
                           placeholder="Describe your swarm..."
-                          className="block w-full rounded-t-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                          className="block w-full rounded-t-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6 overflow-auto custom-scrollbar"
                         />
                       </div>
                     </div>

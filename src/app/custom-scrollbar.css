@@ -1,0 +1,20 @@
+/* Custom scrollbar styles using WebKit (Chrome, Safari, Edge) */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #2d3748; /* Color of the track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4a5568; /* Color of the handle */
+  border-radius: 10px; /* Round the handle */
+  border: 3px solid #2d3748; /* Gives padding around the handle */
+}
+
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin; /* Make the scrollbar thinner */
+  scrollbar-color: #4a5568 #2d3748; /* Handle color and track color */
+}
