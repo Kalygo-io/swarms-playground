@@ -98,7 +98,7 @@ export function PromptForm({
               console.log("ABORT...");
               abortControllerRef.current?.abort();
             }}
-            className="absolute top-2 right-2 p-2 rounded-full bg-red-500 text-white"
+            className="absolute top-2 right-2 p-1 rounded-full bg-red-500 text-white"
           >
             <StopIcon className="h-6 w-6" />
           </button>
