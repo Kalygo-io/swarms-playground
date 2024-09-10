@@ -136,8 +136,8 @@ export default function CustomizeSwarmDrawerNoDialog(P: P) {
               >
                 <div className="font-semibold text-white">Design Swarm</div>
                 <p className="text-sm leading-6 text-blue-300">
-                  What are you aiming to accomplish? We'll generate a group of
-                  agents designed to efficiently achieve your goal.
+                  What are you aiming to accomplish? We&apos;ll generate a group
+                  of agents designed to efficiently achieve your goal.
                 </p>
                 <div>
                   <div className="w-full">
