@@ -6,7 +6,7 @@ import {
   ChatDispatchContext,
   ChatContext,
   useSwarmDesignerChatContext,
-} from "@/app/dashboard/swarm-designer/chat-session-context";
+} from "@/app/dashboard/design-and-run/chat-session-context";
 import { useEnterSubmit } from "@/shared/hooks/use-enter-submit";
 import { nanoid } from "@/shared/utils";
 import { callSwarmDesigner } from "@/services/callSwarmDesigner";

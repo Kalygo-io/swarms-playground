@@ -12,7 +12,7 @@ export async function callRearrangeSwarm(
   dispatch: React.Dispatch<Action>
 ) {
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_AI_API_URL}/api/rearrange-swarm/completion`,
+    `${process.env.NEXT_PUBLIC_AI_API_URL}/api/rearrange-swarm/stream`,
     {
       method: "POST",
       headers: {

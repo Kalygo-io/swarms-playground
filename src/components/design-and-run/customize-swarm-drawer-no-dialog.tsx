@@ -5,7 +5,7 @@ import { useSwarmDesignerContext } from "@/context/swarm-designer-context";
 import { Separator } from "@/components/shared/separator";
 import { toast } from "react-toastify";
 import { errorReporter } from "@/shared/errorReporter";
-import { validateFlow } from "@/components/swarm-designer/helpers/validate-flow";
+import { validateFlow } from "@/components/design-and-run/helpers/validate-flow";
 import { callSwarmDesigner } from "@/services/callSwarmDesigner";
 import { Spinner } from "@/components/shared/common/spinner";
 

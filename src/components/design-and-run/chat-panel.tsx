@@ -1,4 +1,4 @@
-import { PromptForm } from "@/components/swarm-designer/prompt-form";
+import { PromptForm } from "@/components/design-and-run/prompt-form";
 
 export interface ChatPanelProps {
   sessionId: string;

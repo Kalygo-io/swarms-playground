@@ -3,13 +3,13 @@
 import {
   ChatContext,
   ChatDispatchContext,
-} from "@/app/dashboard/swarm-designer/chat-session-context";
+} from "@/app/dashboard/design-and-run/chat-session-context";
 import {
   Action,
   chatReducer,
   initialState,
-} from "@/app/dashboard/swarm-designer/chat-session-reducer";
-import { Chat as SwarmDesignerChat } from "@/components/swarm-designer/chat";
+} from "@/app/dashboard/design-and-run/chat-session-reducer";
+import { Chat as SwarmDesignerChat } from "@/components/design-and-run/chat";
 import { BlocksUnion } from "@/ts/types/BlocksUnion";
 import { useReducer } from "react";
 

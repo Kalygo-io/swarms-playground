@@ -8,7 +8,7 @@ import ReactMarkdown from "react-markdown";
 import { stringToColor } from "@/shared/uuidToColorCode";
 import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
-import { SubBlock } from "@/components/swarm-designer/sub-block";
+import { SubBlock } from "@/components/design-and-run/sub-block";
 import { BlocksUnion } from "@/ts/types/BlocksUnion";
 
 interface P {

@@ -1,13 +1,13 @@
 "use client";
 
-import { ChatContext } from "@/app/dashboard/swarm-designer/chat-session-context";
-import { ChatList } from "@/components/swarm-designer/chat-list";
-import { ChatPanel } from "@/components/swarm-designer/chat-panel";
-import { EmptyScreen } from "@/components/swarm-designer/empty-screen";
+import { ChatContext } from "@/app/dashboard/design-and-run/chat-session-context";
+import { ChatList } from "@/components/design-and-run/chat-list";
+import { ChatPanel } from "@/components/design-and-run/chat-panel";
+import { EmptyScreen } from "@/components/design-and-run/empty-screen";
 import { useScrollAnchor } from "@/shared/hooks/use-scroll-anchor";
 import { cn } from "@/shared/utils";
 import { useContext, useEffect, useState } from "react";
-import CustomizeSwarmDrawer from "@/components/swarm-designer/customize-swarm-drawer";
+import CustomizeSwarmDrawer from "@/components/design-and-run/customize-swarm-drawer";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import CustomizeSwarmDrawerNoDialog from "./customize-swarm-drawer-no-dialog";
 

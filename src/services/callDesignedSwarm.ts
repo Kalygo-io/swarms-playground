@@ -13,7 +13,7 @@ export async function callDesignedSwarm(
   signal: AbortSignal
 ) {
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_AI_API_URL}/api/swarm-designer/completion`,
+    `${process.env.NEXT_PUBLIC_AI_API_URL}/api/design-and-run-swarm/stream`,
     {
       method: "POST",
       headers: {

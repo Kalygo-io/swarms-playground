@@ -4,7 +4,7 @@ import React from "react";
 
 export async function callSwarmDesigner(prompt: string) {
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_AI_API_URL}/api/swarm-designer/design-swarm`,
+    `${process.env.NEXT_PUBLIC_AI_API_URL}/api/design-and-run-swarm/design`,
     {
       method: "POST",
       headers: {

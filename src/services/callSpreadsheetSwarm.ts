@@ -12,7 +12,7 @@ export async function callSpreadsheetSwarm(
   dispatch: React.Dispatch<Action>
 ) {
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_AI_API_URL}/api/spreadsheet-swarm/completion`,
+    `${process.env.NEXT_PUBLIC_AI_API_URL}/api/spreadsheet-swarm/stream`,
     {
       method: "POST",
       headers: {
