@@ -10,6 +10,7 @@ import { Block } from "@/ts/types/Block";
 import { ParallelGroupBlock } from "@/ts/types/ParallelGroupBlock";
 import { SubBlock } from "@/components/design-and-run/sub-block";
 import { BlocksUnion } from "@/ts/types/BlocksUnion";
+import { ChatMessageActions } from "./chat-message-actions";
 
 interface P {
   index: number;
@@ -70,7 +71,9 @@ export const ChatBlock = memo(
                 {P.block.content}
               </ReactMarkdown>
             </div>
+            <ChatMessageActions message={P.block} />
           </div>
+
           <Separator className="my-4 bg-gray-900" />
         </div>
       );
