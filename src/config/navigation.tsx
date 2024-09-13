@@ -7,12 +7,12 @@ export const navigation = [
   //   icon: FaDiceOne,
   // },
   {
-    name: "Design and Run Tool",
+    name: "Design and Run Swarm",
     href: "/dashboard/design-and-run",
     icon: FaDiceOne,
   },
   {
-    name: "Spreadsheet Tool",
+    name: "Spreadsheet Swarm",
     href: "/dashboard/spreadsheet",
     icon: FaDiceTwo,
   },
