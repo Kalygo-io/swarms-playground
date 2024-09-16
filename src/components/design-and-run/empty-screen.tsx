@@ -1,4 +1,4 @@
-import { FaDiceThree } from "react-icons/fa";
+import { FaDiceOne } from "react-icons/fa";
 
 export function EmptyScreen() {
   return (
@@ -7,7 +7,7 @@ export function EmptyScreen() {
         <h1 className="text-gray-200 text-center text-5xl font-semibold leading-12 text-ellipsis overflow-hidden leading-normal">
           SWARM BUILDER
         </h1>
-        <FaDiceThree className="h-8 w-8 text-red-800" />
+        <FaDiceOne className="h-8 w-8 text-red-800" />
       </div>
     </div>
   );

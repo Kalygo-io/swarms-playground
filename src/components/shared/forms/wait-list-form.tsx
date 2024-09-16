@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { Spinner } from "@/components/shared/common/spinner";
 import { sleep } from "../utils/sleep";
+import { successToast } from "@/shared/toasts";
 
 export const WaitListForm = () => {
   const router = useRouter();
@@ -21,7 +22,9 @@ export const WaitListForm = () => {
       setIsLoading(true);
       await joinWaitList(email);
       console.log("after joinWaitingList...");
+      setEmail("");
       setIsLoading(false);
+      successToast("You are now on the SWARMS PLAYGROUND waitlist!");
     } catch (err) {
       setIsLoading(false);
       errorReporter(err);
