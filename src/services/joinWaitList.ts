@@ -1,5 +1,5 @@
 export async function joinWaitList(email: string) {
-  console.log("registerAccount...");
+  console.log("joinWaitList...");
   const resp = await fetch(
     `${process.env.NEXT_PUBLIC_AUTH_API_URL}/api/waitlist/join`,
     {
