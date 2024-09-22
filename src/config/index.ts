@@ -1,3 +1,3 @@
 export const CONFIG = {
-  applicationName: "Thee Playground",
+  applicationName: "Swarms Playground",
 };
