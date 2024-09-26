@@ -168,7 +168,7 @@ export default function CustomizeSwarmDrawer(P: P) {
                   <div className="bg-black px-4 py-6 sm:px-6">
                     <div className="flex items-center justify-between">
                       <DialogTitle className="text-base font-semibold leading-6 text-white">
-                        Design Swarm
+                        Design and Run Swarm
                       </DialogTitle>
                       <div className="ml-3 flex h-7 items-center">
                         <button
