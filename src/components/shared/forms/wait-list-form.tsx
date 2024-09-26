@@ -46,7 +46,7 @@ export const WaitListForm = () => {
             </h1>
           </div>
           <h2 className="text-2xl font-bold text-center text-gray-200">
-            Waitlist
+            Newsletter
           </h2>
           <form className="space-y-6" onSubmit={handleJoinWaitlist}>
             <div>

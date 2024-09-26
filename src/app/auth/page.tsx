@@ -1,5 +1,6 @@
-import { AuthForm } from "@/components/shared/forms/auth-form";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <AuthForm />;
+  redirect("/");
+  return null;
 }
